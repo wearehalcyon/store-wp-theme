@@ -284,25 +284,30 @@ function become_manufacturer_ajax_form()
 	$message = $_POST['message'];
 	$demo_link = $_POST['demo_link'];
 	$date = $_POST['date'];
-
-	$wpdb->insert($table_name, [
-		'user_id' => $user_id,
-		'public_id' => mt_rand(1000, 9999),
-		'name' => $name,
-		'email' => $email,
-		'type' => $type,
-		'message' => $message,
-		'demo_link' => $demo_link,
-		'date' => $date,
-		'status' => 'pending',
-		'conclusion' => 'NaN'
-	]);
+	
+	if (!empty($type) && !empty($message) && !empty($demo_link)) {
+		$wpdb->insert($table_name, [
+			'user_id' => $user_id,
+			'public_id' => mt_rand(1000, 9999),
+			'name' => $name,
+			'email' => $email,
+			'type' => $type,
+			'message' => $message,
+			'demo_link' => $demo_link,
+			'date' => $date,
+			'status' => 'pending',
+			'conclusion' => 'NaN'
+		]);
+		$response = true;
+	} else {
+		$response = false;
+	}
 
 	if (defined('DOING_AJAX') && DOING_AJAX) {
-		echo true;
+		echo $response;
 		wp_die();
 	} else {
-		echo false;
+		echo $response;
 	}
 }
 
@@ -334,7 +339,7 @@ function messenger_ajax_form()
 	$wpdb->insert($table_name, [
 		'user_id' => $user_id,
 		'sender_id' => $sender_id,
-		'message' => $message,
+		'message' => stripslashes($message),
 		'viewed' => 0,
 		'date' => date('m-d-Y H:i:s'),
 		'hash' => md5(date('m-d-Y H:i:s'))
@@ -382,35 +387,35 @@ function messenger_ajax_delete_link()
 }
 
 // Messenger request - delete
-add_action('wp_ajax_nopriv_ajax_messenger_delete_notify', 'messenger_ajax_delete_notify_link');
-add_action('wp_ajax_ajax_messenger_delete_notify', 'messenger_ajax_delete_notify_link');
-function messenger_ajax_delete_notify_link()
-{
-	global $wpdb, $current_user;
+// add_action('wp_ajax_nopriv_ajax_messenger_delete_notify', 'messenger_ajax_delete_notify_link');
+// add_action('wp_ajax_ajax_messenger_delete_notify', 'messenger_ajax_delete_notify_link');
+// function messenger_ajax_delete_notify_link()
+// {
+// 	global $wpdb, $current_user;
 
-	$id = $current_user->ID;
+// 	$id = $current_user->ID;
 
-	$table_name = $wpdb->prefix . 'user_messages';
+// 	$table_name = $wpdb->prefix . 'user_messages';
 
-	$notify_id = $_POST['notify_id'];
+// 	$notify_id = $_POST['notify_id'];
 
-	$wpdb->update(
-		$table_name,
-		[
-			'deleted_notify' => 1,
-		],
-		[
-			'ID' => $notify_id
-		]
-	);
+// 	$wpdb->update(
+// 		$table_name,
+// 		[
+// 			'deleted_notify' => 1,
+// 		],
+// 		[
+// 			'ID' => $notify_id
+// 		]
+// 	);
 
-	if (defined('DOING_AJAX') && DOING_AJAX) {
-		echo true;
-		wp_die();
-	} else {
-		echo false;
-	}
-}
+// 	if (defined('DOING_AJAX') && DOING_AJAX) {
+// 		echo true;
+// 		wp_die();
+// 	} else {
+// 		echo false;
+// 	}
+// }
 
 // Detect if user have new messages
 function get_new_messages()
@@ -447,7 +452,7 @@ function messenger_ajax_compose_message()
 		$wpdb->insert($table_name, [
 			'user_id' => $user_id,
 			'sender_id' => $sender_id,
-			'message' => $message,
+			'message' => stripslashes($message),
 			'viewed' => 0,
 			'deleted' => 0,
 			'deleted_by' => null,

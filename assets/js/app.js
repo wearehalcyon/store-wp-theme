@@ -115,6 +115,7 @@ jQuery(document).ready(function($){
     // Become Manufacturer AJAX request
     $('.send_request_become_manufacturer').on('click', function (event) {
         event.preventDefault();
+        $('span.error_notsent_small').remove();
         $.ajax({
             url: '/wp-admin/admin-ajax.php',
             type: 'POST',
@@ -130,8 +131,13 @@ jQuery(document).ready(function($){
             },
             success: function (response) {
                 console.log(response);
-                $('.become_manufacturer').removeClass('active');
-                $('body').removeClass('scoll-disable');
+                if (response) {
+                    $('.become_manufacturer').removeClass('active');
+                    $('body').removeClass('scoll-disable');
+                    setTimeout(location.reload.bind(location), 500);
+                } else {
+                    $('<span class="error_notsent_small" style="display: block; color: #f00;">Error! Not sent. Try again.</span>').appendTo('.signin_win');
+                }
             }
         });
     });

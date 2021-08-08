@@ -38,7 +38,7 @@ $users_list = get_users( $args );
                     <input type="hidden" value="<?php echo $current_user->ID; ?>" class="sender_id">
                     <label>
                         <strong>User ID</strong>
-                        <input type="user_id" name="user_id" placeholder="9801" class="user_id" required>
+                        <input type="user_id" name="user_id" placeholder="Example: 110" class="user_id" required>
                     </label>
                 </p>
                 <div class="compose_user_list">
