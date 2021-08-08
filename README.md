@@ -1,1 +1,1 @@
-#INTAKE Digital Store App UI Theme for WP
+# INTAKE Digital Store App UI Theme for WP
