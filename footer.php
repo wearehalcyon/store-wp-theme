@@ -158,7 +158,7 @@ global $woocommerce, $current_user;
             <input class="email" type="hidden" name="email" value="<?php echo $current_user->user_email; ?>">
             <input class="date" type="hidden" name="date" value="<?php echo date('m-d-Y H:i:s'); ?>">
             <p class="formcontrol">
-                <select class="type" name="type">
+                <select class="type" name="type" required>
                     <option value="design">Design</option>
                     <option value="development">Development</option>
                     <option value="artwork">Artwork</option>
@@ -167,10 +167,10 @@ global $woocommerce, $current_user;
                 </select>
             </p>
             <p class="formcontrol">
-                <textarea class="message" name="message" cols="30" rows="4" placeholder="Tell us more about yourself and your request..."></textarea>
+                <textarea class="message" name="message" cols="30" rows="4" placeholder="Tell us more about yourself and your request..." required></textarea>
             </p>
             <p class="formcontrol">
-                <input class="demo_link" type="text" name="demo_link" placeholder="Demo link">
+                <input class="demo_link" type="text" name="demo_link" placeholder="Demo link" required>
             </p>
             <p class="formcontrol">
                 <button type="submit" name="send_request" class="button button-primary send_request_become_manufacturer">Send Request</button>
