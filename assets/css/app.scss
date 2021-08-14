@@ -1913,3 +1913,47 @@ body.woocommerce-order-received article.status-publish{
   margin-top: 80px;
   box-shadow: 0px 5px 15px rgba(0,0,0,.03);
 }
+
+.single_product_wrap{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  .product_card_display{
+    width: 500px;
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0px 5px 15px rgba(0,0,0,.04);
+    margin-bottom: 30px;
+    img.cover{
+      border-radius: 8px;
+    }
+    h4{
+      text-align: center;
+      font-size: 24px;
+    }
+  }
+  .single_product_summary{
+    width: calc(100% - 520px);
+    margin-top: 0;
+    .product_card{
+      display: block;
+      position: relative;
+      background-color: #fff;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0px 5px 15px rgba(0,0,0,.04);
+      margin-bottom: 30px;
+      h2.replyform_title{
+        font-weight: 500;
+      }
+      textarea{
+        width: 100%;
+        height: 100px;
+        padding: 10px;
+        resize: none;
+      }
+    }
+  }
+}
