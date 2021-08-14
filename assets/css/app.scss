@@ -28,7 +28,9 @@ a{
 .button,
 .button.button-primary,
 body.woocommerce .button,
-body.woocommerce .button.button-primary{
+body.woocommerce .button.button-primary,
+.woocommerce-table .download-file .woocommerce-MyAccount-downloads-file.button,
+.shop_table .woocommerce-button.button{
   border: none;
   width: 100%;
   text-align: center;
@@ -1359,8 +1361,12 @@ body.woocommerce-account h1.entry-title{
 .woocommerce-account .woocommerce-MyAccount-content{
   float: none;
   margin: 40px auto 0;
-  width: 600px;
+  width: 960px;
   max-width: 100%;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 5px 15px rgba(0,0,0,.03);
   .woocommerce-form-row,
   .woocommerce-address-fields__field-wrapper{
     input[type="text"],
@@ -1895,4 +1901,15 @@ body.woocommerce-account a.woocommerce-Button.button{
       }
     }
   }
+}
+
+body.woocommerce-order-received article.status-publish{
+  margin: 0 auto;
+  max-width: 100%;
+  width: 960px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 80px;
+  box-shadow: 0px 5px 15px rgba(0,0,0,.03);
 }
