@@ -64,29 +64,52 @@ if ( post_password_required() ) {
 		</div>
 		<div class="product_card reviews">
 			<div class="reviews_list">
-				<?php wp_list_comments([
-					'style' => 'ul',
-					'avatar_size' => 50,
-					'per_page' => '',
-					'echo' => true,
-					'login_text' => _e('<strong>Sign In for making review</strong>'),
-					'reply_text' => false
-				], get_comments([
-					'post_id' => $post->ID,
-					'number' => 999999
-				])); ?>
+				<?php 
+					echo '<h3 class="reviews_title">Reviews</h3>';
+					$reviews = get_comments([
+						'post_id' => $post->ID,
+						'type' => 'review',
+						'status' => 1,
+						'number' => 999999
+					]);
+					foreach ( $reviews as $review ) {
+						$avatar = get_avatar_url($review->comment_author_email);
+				?>
+					<div class="review_item">
+						<div class="reviewer_photo">
+							<?php
+								if ( $avatar ) {
+									echo '<img src="' . $avatar . '" alt="' . $review->comment_author . '" title="' . $review->comment_author . '" width="50" height="50">';
+								} else {
+									echo '<img src="" alt="' . $review->comment_author . '" title="' . $review->comment_author . '" width="50" height="50">';
+								}
+							?>
+						</div>
+						<div class="reviewer_content">
+							<h4 class="author"><?php echo $review->comment_author; ?> #1</h4>
+							<span class="date"><?php echo date('F d, Y / H:i', strtotime($review->comment_date_gmt)); ?></span>
+							<p><?php echo $review->comment_content; ?></p>
+						</div>
+					</div>
+				<?php
+					}
+				?>
 			</div>
 			<?php
-				// If comments are open or we have at least one comment, load up the comment template.
-				if ( comments_open() || get_comments_number() ) :
+				if ( comments_open() || get_comments_number() ) {
 					comment_form([
 						'class_form' => 'item_reviews_cord',
 						'title_reply_before' => '<h2 class="replyform_title">',
-						'title_reply' => 'Reviews',
+						'title_reply' => null,
 						'title_reply_after' => '</h2>',
+						''
 					]);
-				endif;
+				}
 			?>
+			<div class="sending_preloader">
+				<img src="<?php echo THEME_URI . '/assets/images/loading-spiner.svg' ?>" alt="Sending...">
+				<span>Sending</span>
+			</div>
 		</div>
 	</div>
 

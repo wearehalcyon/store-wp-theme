@@ -107,7 +107,8 @@ jQuery(document).ready(function($){
         $(target).addClass('active');
         $('body').addClass('scoll-disable');
     });
-    $('.bglayer, .close_win').on('click', function(){
+    $('.bglayer, .close_win').on('click', function(e){
+        e.preventDefault();
         $('.popup_win').removeClass('active');
         $('body').removeClass('scoll-disable');
     });
@@ -276,6 +277,34 @@ jQuery(document).ready(function($){
                 }
                 $('.loading_spiner').removeClass('show');
                 console.log(response);
+            }
+        });
+    });
+
+    // Send review form
+    $('form#commentform').on('submit', function (event) {
+        event.preventDefault();
+        $('.sending_preloader').addClass('show');
+        $.ajax({
+            url: '/wp-admin/admin-ajax.php',
+            type: 'POST',
+            data: {
+                action: 'ajax_send_review',
+                comment_author_IP: $('input[name="ip"]').val(),
+                comment_agent: $('input[name="agent"]').val(),
+                comment_post_ID: $('input[name="item_id"]').val(),
+                comment_content: $('textarea#comment').val(),
+            },
+            success: function (response) {
+                console.log(response);
+                if ( response ) {
+                    $('.sending_preloader').removeClass('show');
+                    $('textarea#comment').val('');
+                    $('.review_sent').addClass('active');
+                } else {
+                    $('.sending_preloader').removeClass('show');
+                    $('.review_not_sent').addClass('active');
+                }
             }
         });
     });

@@ -194,6 +194,33 @@ global $woocommerce, $current_user;
     </div>
 </div>
 <?php endif; ?>
+<?php if (is_product()) : ?>
+    <div id="review_not_sent" class="popup_win review_not_sent">
+        <div class="bglayer"></div>
+        <div class="signin_win">
+            <button class="close_win"></button>
+            <div class="popup_win_ico large">
+                <img src="<?php echo THEME_URI . '/assets/images/ico-alert.svg' ?>" alt="Alert Icon">
+            </div>
+            <h4>Error!</h4>
+            <span>Something went wrong! Review was not sent. Try again later or check review field again.</span>
+            <div class="confiramtion_buttons">
+                <a href="#" class="button close_win">OK</a>
+            </div>
+        </div>
+    </div>
+    <div id="review_sent" class="popup_win review_sent">
+        <div class="bglayer"></div>
+        <div class="signin_win">
+            <button class="close_win"></button>
+            <h4>Success!</h4>
+            <span>Review was sent successfully! Now we should verify your comment. Wait a bit.</span>
+            <div class="confiramtion_buttons">
+                <a href="#" class="button close_win">OK</a>
+            </div>
+        </div>
+    </div>
+<?php endif; ?>
 <?php wp_footer(); ?>
 </body>
 </html>

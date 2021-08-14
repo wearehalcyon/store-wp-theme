@@ -470,3 +470,73 @@ function messenger_ajax_compose_message()
 		wp_die();
 	}
 }
+
+// Remove comments login link
+add_filter( 'comment_form_logged_in', '__return_empty_string' );
+
+// Customize reviewer form
+add_filter('comment_form_defaults', 'wpsites_modify_comment_form_text_area');
+function wpsites_modify_comment_form_text_area($arg) {
+	global $post;
+	if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+		$ip = $_SERVER['HTTP_CLIENT_IP'];
+	} elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+		$ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+	} else {
+		$ip = $_SERVER['REMOTE_ADDR'];
+	}
+    $arg['comment_field'] = '<input type="hidden" name="ip" value="' . $ip . '"><input type="hidden" name="agent" value="' . $_SERVER['HTTP_USER_AGENT'] . '"><input type="hidden" name="item_id" value="' . $post->ID . '"><p class="formcontroll"><textarea id="comment" name="comment" cols="45" rows="1" aria-required="true" placeholder="Your review" required></textarea></p>';
+    return $arg;
+}
+
+// Send review AJAX
+add_action('wp_ajax_nopriv_ajax_send_review', 'send_review_ajax_form');
+add_action('wp_ajax_ajax_send_review', 'send_review_ajax_form');
+function send_review_ajax_form()
+{
+	global $wpdb, $post, $current_user;
+
+	$table_name = $wpdb->prefix . 'comments';
+
+	$comment_post_ID = $_POST['comment_post_ID'];
+	$comment_author = $current_user->display_name;
+	$comment_author_email = $current_user->user_email;
+	$comment_author_url = $current_user->user_url;
+	$comment_author_IP = $_POST['comment_author_IP'];
+	$comment_date = date('Y-m-d H:i:s');
+	$comment_date_gmt = date('Y-m-d H:i:s');
+	$comment_content = $_POST['comment_content'];
+	$comment_karma = 0;
+	$comment_approved = 0;
+	$comment_agent = $_POST['comment_agent'];
+	$comment_type = 'review';
+	$comment_parent = 0;
+	$user_id = $current_user->ID;
+
+	if ( !empty($comment_content) ) {
+		$wpdb->insert($table_name, [
+			'comment_post_ID' => $comment_post_ID,
+			'comment_author' => $comment_author,
+			'comment_author_email' => $comment_author_email,
+			'comment_author_url' => $comment_author_url,
+			'comment_author_IP' => $comment_author_IP,
+			'comment_date' => $comment_date,
+			'comment_date_gmt' => $comment_date_gmt,
+			'comment_content' => $comment_content,
+			'comment_karma' => $comment_karma,
+			'comment_approved' => $comment_approved,
+			'comment_agent' => $comment_agent,
+			'comment_type' => $comment_type,
+			'comment_parent' => $comment_parent,
+			'user_id' => $user_id
+		]);
+		$response = true;
+	} else {
+		$response = false;
+	}
+
+	if (defined('DOING_AJAX') && DOING_AJAX) {
+		echo $response;
+		wp_die();
+	}
+}
