@@ -2686,3 +2686,15 @@ body.woocommerce-order-received article.status-publish {
   -webkit-animation: sending_message_badge 1s infinite;
           animation: sending_message_badge 1s infinite;
 }
+
+.product_details h1 {
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.product_details .manufacturer {
+  display: block;
+  position: relative;
+  font-size: 13px;
+  font-weight: 400;
+}

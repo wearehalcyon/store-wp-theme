@@ -46,7 +46,10 @@ if ( post_password_required() ) {
 	<div class="single_product_summary entry-summary">
 		<div class="product_card product_details">
 			<?php
+			$manufacturer = get_field('manufacturer', $post->ID);
+			$manufacturer = get_userdata($manufacturer);
 			echo '<h1>' . get_the_title() . '</h1>';
+			echo '<div class="manufacturer">Manufacturer: <a href="' . get_author_posts_url( $manufacturer->ID ) . '" title="' . $manufacturer->display_name . '">' . $manufacturer->display_name . '</a></div>';
 			/**
 			 * Hook: woocommerce_single_product_summary.
 			 *
