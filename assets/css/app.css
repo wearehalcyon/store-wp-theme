@@ -2698,3 +2698,108 @@ body.woocommerce-order-received article.status-publish {
   font-size: 13px;
   font-weight: 400;
 }
+
+.product_meta_info {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  margin-top: 30px;
+}
+
+.product_meta_info .product_rating {
+  width: 150px;
+  height: auto;
+}
+
+.product_meta_info .product_rating .rating_count {
+  display: inline-block;
+  text-align: center;
+}
+
+.product_meta_info .product_rating .rating_count .rating_stars {
+  display: block;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.product_meta_info .product_rating .rating_count .rating_stars img {
+  width: 12px;
+  height: 12px;
+  margin: 0 2px;
+}
+
+.product_meta_info .product_rating .rating_count .rating_circle {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  position: relative;
+  width: 80px;
+  height: 80px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  font-size: 26px;
+  font-weight: 600;
+}
+
+.product_meta_info .product_rating .rating_count .rating_circle svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.product_meta_info .product_info {
+  width: calc(100% - 150px);
+  font-size: 14px;
+  padding-right: 80px;
+}
+
+.product_meta_info .product_info .product_price_and_buy {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-top: 20px;
+}
+
+.product_meta_info .product_info .product_price_and_buy .product_price {
+  margin-right: 25px;
+}
+
+.product_meta_info .product_info .product_price_and_buy .product_price span.product_price_range {
+  display: inline-block;
+  font-size: 24px;
+  font-size: 500;
+  color: #4CE426;
+}
+
+#gray_button,
+.gray_button {
+  display: inline-block;
+  text-decoration: none;
+  color: #007bec;
+  font-weight: 500;
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 6px;
+  padding: 6px 20px;
+}
+
+#gray_button:hover,
+.gray_button:hover {
+  background-color: rgba(0, 0, 0, 0.08);
+}
+
+.woocommerce .woocommerce-breadcrumb {
+  margin-top: 20px;
+}

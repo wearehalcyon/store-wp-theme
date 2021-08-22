@@ -18,6 +18,7 @@
 defined( 'ABSPATH' ) || exit;
 
 global $product, $post;
+$WC_Product = new WC_Product();
 
 /**
  * Hook: woocommerce_before_single_product.
@@ -64,6 +65,54 @@ if ( post_password_required() ) {
 			 */
 			do_action( 'woocommerce_single_product_summary' );
 			?>
+			<div class="product_meta_info">
+				<div class="product_rating">
+					<div class="rating_count">
+						<div class="rating_stars">
+							<?php
+								$rating = $product->get_average_rating();
+								for( $stars = 1; $stars <= round($rating); $stars++ ) {
+									echo '<img src="' . THEME_URI . '/assets/images/star-orange.svg" alt="Rating Star">';
+								}
+								for ( $stars = 1; $stars <= (5 - round($rating)); $stars++ ) {
+									echo '<img src="' . THEME_URI . '/assets/images/star-gray.svg" alt="Rating Star">';
+								}
+								if ( round($rating) == 5 ) {
+									$dataRating = 1;
+								} elseif ( round($rating) == 4 ) {
+									$dataRating = 0.8;
+								} elseif ( round($rating) == 3 ) {
+									$dataRating = 0.6;
+								} elseif ( round($rating) == 2 ) {
+									$dataRating = 0.4;
+								} elseif ( round($rating) == 1 ) {
+									$dataRating = 0.2;
+								} else {
+									$dataRating = 0;
+								}
+							?>
+						</div>
+						<div id="rating_circle" class="rating_circle" data-rating="<?php echo $dataRating; ?>">
+							<?php echo $rating; ?>
+						</div>
+					</div>
+				</div>
+				<div class="product_info">
+					<?php the_content(); ?>
+					<div class="product_price_and_buy">
+						<?php if ( $product->get_price() ) : ?>
+							<div class="product_price">
+								<span class="product_price_range free_item">
+									<?php echo get_woocommerce_currency_symbol() . $product->get_price(); ?>
+								</span>
+							</div>
+						<?php endif; ?>
+						<div class="product_buy">
+							<a id="gray_button" class="gray_button" href="<?php echo home_url('/cart/?add-to-cart=' . $post->ID . '&redirect=true&url=' . get_the_permalink()); ?>" class="more">Get Now</a>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 		<div class="product_card reviews">
 			<div class="reviews_list">

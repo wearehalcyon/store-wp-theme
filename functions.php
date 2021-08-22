@@ -8,6 +8,12 @@
  * @package INTAKE_DIgital
  */
 
+function woocommerce_theme_support() {
+    add_theme_support( 'woocommerce' );
+}
+
+add_action( 'after_setup_theme', 'woocommerce_theme_support' );
+
 if (!defined('THEME_URI')) {
 	// Replace the version number of the theme on each release.
 	define('THEME_URI', get_template_directory_uri());
@@ -160,7 +166,9 @@ function intake_digital_scripts()
 
 	wp_enqueue_script('intake-digital-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true);
 	wp_enqueue_script('intake-digital-owl-slider', get_template_directory_uri() . '/assets/js/owl.carousel.min.js', array('jquery'), _S_VERSION, true);
-	wp_enqueue_script('intake-digital-pjax', get_template_directory_uri() . '/assets/js/pjax.min.js', array('jquery'), _S_VERSION, true);
+	if ( is_product() ) {
+		wp_enqueue_script('intake-digital-pjax', get_template_directory_uri() . '/assets/js/progressbar.js', array('jquery'), _S_VERSION, true);
+	}
 	wp_enqueue_script('intake-digital-app', get_template_directory_uri() . '/assets/js/app.js', array('jquery'), filemtime(__DIR__ . '/assets/js/app.js'), true);
 
 	if (is_singular() && comments_open() && get_option('thread_comments')) {
@@ -538,5 +546,26 @@ function send_review_ajax_form()
 	if (defined('DOING_AJAX') && DOING_AJAX) {
 		echo $response;
 		wp_die();
+	}
+}
+
+// Custom product price in single page
+remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_rating', 10);
+remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_price', 10);
+remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_excerpt', 20);
+remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_add_to_cart', 30); // ----
+remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40);
+remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_sharing', 50);
+add_filter('woocommerce_is_sold_individually', 'custom_remove_all_quantity_fields', 10, 2);
+function custom_remove_all_quantity_fields( $return, $product ){
+	return true;
+}
+
+// Add to cart link button redirect
+add_action('send_headers', 'wc_cart_add_custom_redirect', 9999);
+function wc_cart_add_custom_redirect(){
+	if (isset($_GET['redirect']) == 'true') {
+		header('Location: ' . $_GET['url']);
+		exit;
 	}
 }
