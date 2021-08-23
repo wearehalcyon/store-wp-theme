@@ -294,6 +294,7 @@ jQuery(document).ready(function($){
                 comment_agent: $('input[name="agent"]').val(),
                 comment_post_ID: $('input[name="item_id"]').val(),
                 comment_content: $('textarea#comment').val(),
+                rating: $('input[name="rating"]').val()
             },
             success: function (response) {
                 console.log(response);
@@ -301,6 +302,9 @@ jQuery(document).ready(function($){
                     $('.sending_preloader').removeClass('show');
                     $('textarea#comment').val('');
                     $('.review_sent').addClass('active');
+                    $('.rate_product_please img').removeClass('choosed');
+                    $('.rate_product_please img[data-count="1"]').addClass('choosed');
+                    $('input[name="rating"]').val(1);
                 } else {
                     $('.sending_preloader').removeClass('show');
                     $('.review_not_sent').addClass('active');
@@ -322,4 +326,23 @@ jQuery(document).ready(function($){
     });
       
     bar.animate(rating);
+
+    // Rate product - choose star
+    $('.rate_product_please img').on('click', function(){
+        $(this).prevAll().addClass('choosed');
+        $(this).addClass('choosed');
+        $(this).nextAll().removeClass('choosed');
+        var value = $(this).data('count');
+        $('input[name="rating"]').val(value);
+    });
+
+    $('.rate_product_please img').hover(function() {
+        $(this).prevAll().addClass('hovered');
+        $(this).addClass('hovered');
+        $(this).nextAll().removeClass('hovered');
+    });
+
+    $('.rate_product_please img').on('mouseleave', function(){
+        $('.rate_product_please img').removeClass('hovered');
+    });
 });

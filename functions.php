@@ -349,8 +349,8 @@ function messenger_ajax_form()
 		'sender_id' => $sender_id,
 		'message' => stripslashes($message),
 		'viewed' => 0,
-		'date' => date('m-d-Y H:i:s'),
-		'hash' => md5(date('m-d-Y H:i:s'))
+		'date' => date('m/d/Y H:i:s'),
+		'hash' => md5(date('m/d/Y H:i:s'))
 	]);
 
 	if (defined('DOING_AJAX') && DOING_AJAX) {
@@ -379,7 +379,7 @@ function messenger_ajax_delete_link()
 		[
 			'deleted' => 1,
 			'deleted_by' => $id,
-			'deleting_date' => date('m-d-Y H:i:s')
+			'deleting_date' => date('m/d/Y H:i:s')
 		],
 		[
 			'ID' => $message_id
@@ -393,37 +393,6 @@ function messenger_ajax_delete_link()
 		echo false;
 	}
 }
-
-// Messenger request - delete
-// add_action('wp_ajax_nopriv_ajax_messenger_delete_notify', 'messenger_ajax_delete_notify_link');
-// add_action('wp_ajax_ajax_messenger_delete_notify', 'messenger_ajax_delete_notify_link');
-// function messenger_ajax_delete_notify_link()
-// {
-// 	global $wpdb, $current_user;
-
-// 	$id = $current_user->ID;
-
-// 	$table_name = $wpdb->prefix . 'user_messages';
-
-// 	$notify_id = $_POST['notify_id'];
-
-// 	$wpdb->update(
-// 		$table_name,
-// 		[
-// 			'deleted_notify' => 1,
-// 		],
-// 		[
-// 			'ID' => $notify_id
-// 		]
-// 	);
-
-// 	if (defined('DOING_AJAX') && DOING_AJAX) {
-// 		echo true;
-// 		wp_die();
-// 	} else {
-// 		echo false;
-// 	}
-// }
 
 // Detect if user have new messages
 function get_new_messages()
@@ -465,8 +434,8 @@ function messenger_ajax_compose_message()
 			'deleted' => 0,
 			'deleted_by' => null,
 			'deleting_date' => null,
-			'date' => date('m-d-Y H:i:s'),
-			'hash' => md5(date('m-d-Y H:i:s'))
+			'date' => date('m/d/Y H:i:s'),
+			'hash' => md5(date('m/d/Y H:i:s'))
 		]);
 		$response = true;
 	} else {
@@ -493,7 +462,7 @@ function wpsites_modify_comment_form_text_area($arg) {
 	} else {
 		$ip = $_SERVER['REMOTE_ADDR'];
 	}
-    $arg['comment_field'] = '<input type="hidden" name="ip" value="' . $ip . '"><input type="hidden" name="agent" value="' . $_SERVER['HTTP_USER_AGENT'] . '"><input type="hidden" name="item_id" value="' . $post->ID . '"><p class="formcontroll"><textarea id="comment" name="comment" cols="45" rows="1" aria-required="true" placeholder="Your review" required></textarea></p>';
+    $arg['comment_field'] = '<div class="rate_product_please"><h5>Rate product please</h5><div class="rating_slider"><img src="' . THEME_URI . '/assets/images/star-orange.svg" data-count="1" alt="Rating Star" class="voting_star choosed"><img src="' . THEME_URI . '/assets/images/star-orange.svg" data-count="2" alt="Rating Star" class="voting_star"><img src="' . THEME_URI . '/assets/images/star-orange.svg" data-count="3" alt="Rating Star" class="voting_star"><img src="' . THEME_URI . '/assets/images/star-orange.svg" data-count="4" alt="Rating Star" class="voting_star"><img src="' . THEME_URI . '/assets/images/star-orange.svg" data-count="5" alt="Rating Star" class="voting_star"><input type="hidden" name="rating" value="1"></div></div><input type="hidden" name="ip" value="' . $ip . '"><input type="hidden" name="agent" value="' . $_SERVER['HTTP_USER_AGENT'] . '"><input type="hidden" name="item_id" value="' . $post->ID . '"><p class="formcontroll"><textarea id="comment" name="comment" cols="45" rows="1" aria-required="true" placeholder="Your review" required></textarea></p>';
     return $arg;
 }
 
@@ -520,6 +489,7 @@ function send_review_ajax_form()
 	$comment_type = 'review';
 	$comment_parent = 0;
 	$user_id = $current_user->ID;
+	$rating = $_POST['rating'];
 
 	if ( !empty($comment_content) ) {
 		$wpdb->insert($table_name, [
@@ -536,7 +506,8 @@ function send_review_ajax_form()
 			'comment_agent' => $comment_agent,
 			'comment_type' => $comment_type,
 			'comment_parent' => $comment_parent,
-			'user_id' => $user_id
+			'user_id' => $user_id,
+			'rating' => $rating
 		]);
 		$response = true;
 	} else {
@@ -556,6 +527,7 @@ remove_action('woocommerce_single_product_summary', 'woocommerce_template_single
 remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_add_to_cart', 30); // ----
 remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40);
 remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_sharing', 50);
+remove_action('woocommerce_after_single_product_summary', 'woocommerce_output_related_products', 20);
 add_filter('woocommerce_is_sold_individually', 'custom_remove_all_quantity_fields', 10, 2);
 function custom_remove_all_quantity_fields( $return, $product ){
 	return true;

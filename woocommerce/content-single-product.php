@@ -70,30 +70,132 @@ if ( post_password_required() ) {
 					<div class="rating_count">
 						<div class="rating_stars">
 							<?php
-								$rating = $product->get_average_rating();
-								for( $stars = 1; $stars <= round($rating); $stars++ ) {
+								$ratings_comments = get_comments([
+									'post_id' => $post->ID,
+									'type' => 'review',
+									'status' => 1,
+									'number' => 999999
+								]);
+								$rated_counter = 1;
+								foreach ($ratings_comments as $ratings_comment) {
+									$rated_count = $rated_counter++;
+									$rating_all += $ratings_comment->rating;
+									$rating = $rating_all / $rated_count;
+								}
+								//$rating = $product->get_average_rating();
+								for( $stars = 1; $stars <= floor($rating); $stars++ ) {
 									echo '<img src="' . THEME_URI . '/assets/images/star-orange.svg" alt="Rating Star">';
 								}
-								for ( $stars = 1; $stars <= (5 - round($rating)); $stars++ ) {
+								for ( $stars = 1; $stars <= (5 - floor($rating)); $stars++ ) {
 									echo '<img src="' . THEME_URI . '/assets/images/star-gray.svg" alt="Rating Star">';
 								}
-								if ( round($rating) == 5 ) {
+								if ( round($rating, 1) == 5 ) {
 									$dataRating = 1;
-								} elseif ( round($rating) == 4 ) {
+								} elseif ( round($rating, 1) == 4.9 ) { // 4.9
+									$dataRating = 0.98;
+								} elseif ( round($rating, 1) == 4.8 ) {
+									$dataRating = 0.96;
+								} elseif ( round($rating, 1) == 4.7 ) {
+									$dataRating = 0.94;
+								} elseif ( round($rating, 1) == 4.6 ) {
+									$dataRating = 0.92;
+								} elseif ( round($rating, 1) == 4.5 ) {
+									$dataRating = 0.9;
+								} elseif ( round($rating, 1) == 4.4 ) {
+									$dataRating = 0.88;
+								} elseif ( round($rating, 1) == 4.3 ) {
+									$dataRating = 0.86;
+								} elseif ( round($rating, 1) == 4.2 ) {
+									$dataRating = 0.84;
+								} elseif ( round($rating, 1) == 4.1 ) {
+									$dataRating = 0.82;
+								} elseif ( round($rating, 1) == 4 ) {
 									$dataRating = 0.8;
-								} elseif ( round($rating) == 3 ) {
+								} elseif ( round($rating, 1) == 3.9 ) { // 3.9
+									$dataRating = 0.78;
+								} elseif ( round($rating, 1) == 3.8 ) {
+									$dataRating = 0.76;
+								} elseif ( round($rating, 1) == 3.7 ) {
+									$dataRating = 0.74;
+								} elseif ( round($rating, 1) == 3.6 ) {
+									$dataRating = 0.72;
+								} elseif ( round($rating, 1) == 3.5 ) {
 									$dataRating = 0.6;
-								} elseif ( round($rating) == 2 ) {
+								} elseif ( round($rating, 1) == 3.4 ) {
+									$dataRating = 0.68;
+								} elseif ( round($rating, 1) == 3.3 ) {
+									$dataRating = 0.66;
+								} elseif ( round($rating, 1) == 3.2 ) {
+									$dataRating = 0.64;
+								} elseif ( round($rating, 1) == 3.1 ) {
+									$dataRating = 0.62;
+								} elseif ( round($rating, 1) == 3 ) {
+									$dataRating = 0.6;
+								} elseif ( round($rating, 1) == 2.9 ) { // 2.9
+									$dataRating = 0.58;
+								} elseif ( round($rating, 1) == 2.8 ) {
+									$dataRating = 0.56;
+								} elseif ( round($rating, 1) == 2.7 ) {
+									$dataRating = 0.54;
+								} elseif ( round($rating, 1) == 2.6 ) {
+									$dataRating = 0.52;
+								} elseif ( round($rating, 1) == 2.5 ) {
+									$dataRating = 0.5;
+								} elseif ( round($rating, 1) == 2.4 ) {
+									$dataRating = 0.48;
+								} elseif ( round($rating, 1) == 2.3 ) {
+									$dataRating = 0.46;
+								} elseif ( round($rating, 1) == 2.2 ) {
+									$dataRating = 0.44;
+								} elseif ( round($rating, 1) == 2.1 ) {
+									$dataRating = 0.42;
+								} elseif ( round($rating, 1) == 2 ) {
 									$dataRating = 0.4;
-								} elseif ( round($rating) == 1 ) {
+								} elseif ( round($rating, 1) == 1.9 ) { // 1.9
+									$dataRating = 0.38;
+								} elseif ( round($rating, 1) == 1.8 ) {
+									$dataRating = 0.36;
+								} elseif ( round($rating, 1) == 1.7 ) {
+									$dataRating = 0.34;
+								} elseif ( round($rating, 1) == 1.6 ) {
+									$dataRating = 0.32;
+								} elseif ( round($rating, 1) == 1.5 ) {
+									$dataRating = 0.3;
+								} elseif ( round($rating, 1) == 1.4 ) {
+									$dataRating = 0.28;
+								} elseif ( round($rating, 1) == 1.3 ) {
+									$dataRating = 0.26;
+								} elseif ( round($rating, 1) == 1.2 ) {
+									$dataRating = 0.24;
+								} elseif ( round($rating, 1) == 1.1 ) {
+									$dataRating = 0.22;
+								} elseif ( round($rating, 1) == 1 ) {
 									$dataRating = 0.2;
-								} else {
+								} elseif ( round($rating, 1) == 0.9 ) { // 0.9
+									$dataRating = 0.18;
+								} elseif ( round($rating, 1) == 0.8 ) {
+									$dataRating = 0.16;
+								} elseif ( round($rating, 1) == 0.7 ) {
+									$dataRating = 0.14;
+								} elseif ( round($rating, 1) == 0.6 ) {
+									$dataRating = 0.12;
+								} elseif ( round($rating, 1) == 0.5 ) {
+									$dataRating = 0.1;
+								} elseif ( round($rating, 1) == 0.4 ) {
+									$dataRating = 0.08;
+								} elseif ( round($rating, 1) == 0.3 ) {
+									$dataRating = 0.06;
+								} elseif ( round($rating, 1) == 0.2 ) {
+									$dataRating = 0.04;
+								} elseif ( round($rating, 1) == 0.1 ) {
+									$dataRating = 0.02;
+								} elseif ( round($rating, 1) == 0 ) {
 									$dataRating = 0;
 								}
 							?>
 						</div>
 						<div id="rating_circle" class="rating_circle" data-rating="<?php echo $dataRating; ?>">
-							<?php echo $rating; ?>
+							<?php echo round($rating, 1); ?>
 						</div>
 					</div>
 				</div>
@@ -136,9 +238,21 @@ if ( post_password_required() ) {
 									echo '<img src="" alt="' . $review->comment_author . '" title="' . $review->comment_author . '" width="50" height="50">';
 								}
 							?>
+							<div class="user_rating">
+								<?php
+									for( $stars = 1; $stars <= $review->rating; $stars++ ) {
+										echo '<img src="' . THEME_URI . '/assets/images/star-orange.svg" alt="Rating Star">';
+									}
+									for ( $stars = 1; $stars <= (5 - $review->rating); $stars++ ) {
+										echo '<img src="' . THEME_URI . '/assets/images/star-gray.svg" alt="Rating Star">';
+									}
+								?>
+							</div>
 						</div>
 						<div class="reviewer_content">
-							<h4 class="author"><?php echo $review->comment_author; ?> #1</h4>
+							<h4 class="author">
+								<?php echo $review->comment_author; ?> #<?php echo $review->user_id; ?>
+							</h4>
 							<span class="date"><?php echo date('F d, Y / H:i', strtotime($review->comment_date_gmt)); ?></span>
 							<p><?php echo $review->comment_content; ?></p>
 						</div>

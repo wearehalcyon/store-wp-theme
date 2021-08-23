@@ -1987,6 +1987,9 @@ body.woocommerce-order-received article.status-publish{
         padding: 15px;
         border-radius: 6px;
         h4.author{
+          display: flex;
+          flex-wrap: wrap;
+          align-items: center;
           font-weight: 500;
           margin: 0;
           font-size: 15px;
@@ -2129,4 +2132,27 @@ body.woocommerce-order-received article.status-publish{
 
 .woocommerce .woocommerce-breadcrumb{
   margin-top: 20px;
+}
+
+.rate_product_please{
+  display: block;
+  position: relative;
+  h5{
+    margin-bottom: 5px;
+  }
+  img{
+    width: 20px;
+    height: 18px;
+    margin-right: 1px;
+    cursor: pointer;
+    filter: grayscale(100%);
+    opacity: .3;
+    transition: all .05s;
+    &:hover,
+    &.choosed,
+    &.hovered{
+      filter: grayscale(0%);
+      opacity: 1;
+    }
+  }
 }

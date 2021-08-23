@@ -2623,6 +2623,14 @@ body.woocommerce-order-received article.status-publish {
 }
 
 .product_card.reviews .reviews_list .review_item .reviewer_content h4.author {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   font-weight: 500;
   margin: 0;
   font-size: 15px;
@@ -2802,4 +2810,31 @@ body.woocommerce-order-received article.status-publish {
 
 .woocommerce .woocommerce-breadcrumb {
   margin-top: 20px;
+}
+
+.rate_product_please {
+  display: block;
+  position: relative;
+}
+
+.rate_product_please h5 {
+  margin-bottom: 5px;
+}
+
+.rate_product_please img {
+  width: 20px;
+  height: 18px;
+  margin-right: 1px;
+  cursor: pointer;
+  -webkit-filter: grayscale(100%);
+          filter: grayscale(100%);
+  opacity: .3;
+  -webkit-transition: all .05s;
+  transition: all .05s;
+}
+
+.rate_product_please img:hover, .rate_product_please img.choosed, .rate_product_please img.hovered {
+  -webkit-filter: grayscale(0%);
+          filter: grayscale(0%);
+  opacity: 1;
 }
