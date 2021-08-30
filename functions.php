@@ -168,8 +168,15 @@ function intake_digital_scripts()
 	wp_enqueue_script('intake-digital-owl-slider', get_template_directory_uri() . '/assets/js/owl.carousel.min.js', array('jquery'), _S_VERSION, true);
 	if ( is_product() ) {
 		wp_enqueue_script('intake-digital-pjax', get_template_directory_uri() . '/assets/js/progressbar.js', array('jquery'), _S_VERSION, true);
+        wp_enqueue_script('intake-digital-pjax', get_template_directory_uri() . '/assets/js/progress-bar.js', array('jquery'), _S_VERSION, true);
 	}
-	wp_enqueue_script('intake-digital-app', get_template_directory_uri() . '/assets/js/app.js', array('jquery'), filemtime(__DIR__ . '/assets/js/app.js'), true);
+    wp_register_script( 'app-scripts', get_template_directory_uri() . '/assets/js/app.js', array( 'jquery' ), filemtime(__DIR__ . '/assets/js/app.js'), true );
+    wp_enqueue_script( 'app-scripts');
+
+    wp_localize_script( 'app-scripts', 'ajax_url', array(
+        'url' => admin_url( 'admin-ajax.php' ),
+        'nonce' => wp_create_nonce('app-ajax-nonce')
+    ) );
 
 	if (is_singular() && comments_open() && get_option('thread_comments')) {
 		wp_enqueue_script('comment-reply');
@@ -211,6 +218,11 @@ require get_template_directory() . '/inc/Browser.php';
  * Admin menus.
  */
 require get_template_directory() . '/inc/admin/admin-menus.php';
+
+/**
+ * REST API.
+ */
+require get_template_directory() . '/inc/rest-api.php';
 
 /**
  * Load Jetpack compatibility file.
@@ -540,4 +552,76 @@ function wc_cart_add_custom_redirect(){
 		header('Location: ' . $_GET['url']);
 		exit;
 	}
+}
+
+// Author slug
+add_action('init', 'cng_author_base');
+function cng_author_base() {
+    global $wp_rewrite;
+    $author_slug = 'manufacturer'; // change slug name
+    $wp_rewrite->author_base = $author_slug;
+}
+
+// Advanced Account Data
+function get_advanced_account_data($id){
+    global $wpdb;
+
+    $table_name = $wpdb->prefix . 'user_advanced_data';
+
+    $request = $wpdb->get_results("SELECT * FROM $table_name WHERE (`user_id` = $id)");
+
+    return $request;
+}
+
+// Update Advanced Account Data
+if( WP_DEBUG && WP_DEBUG_DISPLAY && (defined('DOING_AJAX') && DOING_AJAX) ){
+    @ ini_set( 'display_errors', 1 );
+}
+if (wp_doing_ajax()) {
+    add_action('wp_ajax_send_advanced_account_data', 'send_advanced_account_data');
+    add_action('wp_ajax_nopriv_send_advanced_account_data', 'send_advanced_account_data');
+}
+function send_advanced_account_data(){
+    global $wpdb, $current_user;
+    $id = $current_user->ID;
+    $table_name = $wpdb->prefix . 'user_advanced_data';
+    $created = $wpdb->get_results("SELECT * FROM $table_name WHERE (`user_id` = $id)");
+
+    $banner = $_POST['banner'] ? $_POST['banner'] : null;
+    $photo  = $_POST['photo'] ? $_POST['photo'] : null;
+    $email  = $_POST['email'] ? $_POST['email'] : null;
+    $description = $_POST['description'] ? $_POST['description'] : null;
+    $web    = $_POST['web'] ? $_POST['web'] : null;
+
+    if ($created) {
+        $wpdb->update(
+            $table_name,
+            [
+                'banner' => $banner,
+                'avatar' => $photo,
+                'email' => $email,
+                'description' => $description,
+                'web' => $web
+            ],
+            [
+                'ID' => $created[0]->id
+            ]
+        );
+    } else {
+        $wpdb->insert($table_name, [
+            'user_id' => $id,
+            'banner' => $banner,
+            'avatar' => $photo,
+            'email' => $email,
+            'description' => $description,
+            'web' => $web
+        ]);
+    }
+
+    if (wp_doing_ajax()) {
+        echo true;
+        wp_die();
+    } else {
+        echo false;
+    }
 }

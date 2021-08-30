@@ -262,20 +262,26 @@ if ( post_password_required() ) {
 				?>
 			</div>
 			<?php
-				if ( comments_open() || get_comments_number() ) {
-					comment_form([
-						'class_form' => 'item_reviews_cord',
-						'title_reply_before' => '<h2 class="replyform_title">',
-						'title_reply' => null,
-						'title_reply_after' => '</h2>',
-						''
-					]);
-				}
+                if ( is_user_logged_in() ) :
+                    if ( comments_open() || get_comments_number() ) {
+                        comment_form([
+                            'class_form' => 'item_reviews_cord',
+                            'title_reply_before' => '<h2 class="replyform_title">',
+                            'title_reply' => null,
+                            'title_reply_after' => '</h2>',
+                            ''
+                        ]);
+                    }
 			?>
-			<div class="sending_preloader">
-				<img src="<?php echo THEME_URI . '/assets/images/loading-spiner.svg' ?>" alt="Sending...">
-				<span>Sending</span>
-			</div>
+                <div class="sending_preloader">
+                    <img src="<?php echo THEME_URI . '/assets/images/loading-spiner.svg' ?>" alt="Sending...">
+                    <span>Sending</span>
+                </div>
+            <?php else : ?>
+                <div class="comments_closed">
+                    <p><?php esc_html_e('You should be logged in for leave reviews on this item.'); ?></p>
+                </div>
+            <?php endif; ?>
 		</div>
 	</div>
 

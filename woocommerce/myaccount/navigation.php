@@ -30,7 +30,8 @@ $has_messages = get_new_messages();
 
 <nav class="woocommerce-MyAccount-navigation">
 	<ul class="account_nav">
-		<li><?php echo $has_messages ? '<span class="new_message"></span>' : false; ?><a href="<?php echo home_url('/account/msg/'); ?>">Messages</a></li>
+        <li><?php echo $has_messages ? '<span class="new_message"></span>' : false; ?><a href="<?php echo home_url('/account/msg/'); ?>">Messages</a></li>
+        <li><a href="<?php echo home_url('/account/advanced-data/'); ?>">Advanced Data</a></li>
 		<?php foreach ( wc_get_account_menu_items() as $endpoint => $label ) : ?>
 			<li class="<?php echo wc_get_account_menu_item_classes( $endpoint ); ?>">
 				<a href="<?php echo esc_url( wc_get_account_endpoint_url( $endpoint ) ); ?>"><?php echo esc_html( $label ); ?></a>

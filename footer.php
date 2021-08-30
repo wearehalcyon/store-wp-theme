@@ -221,6 +221,36 @@ global $woocommerce, $current_user;
         </div>
     </div>
 <?php endif; ?>
+<?php if ( get_the_title() == 'Advanced Data' ) : ?>
+    <div id="invalid_add_image" class="popup_win invalid_add_image">
+        <div class="bglayer"></div>
+        <div class="signin_win">
+            <button class="close_win"></button>
+            <div class="popup_win_ico large">
+                <img src="<?php echo THEME_URI . '/assets/images/ico-alert.svg' ?>" alt="Alert Icon">
+            </div>
+            <h4>Error!</h4>
+            <span>You uploading invalid image type or your image has a large size. Please use only JPEG, JPG, PNG or GIF images and not more than 250Kb.</span>
+            <div class="confiramtion_buttons">
+                <a href="#" class="button close_win">OK</a>
+            </div>
+        </div>
+    </div>
+    <div id="invalid_add_photo" class="popup_win invalid_add_photo">
+        <div class="bglayer"></div>
+        <div class="signin_win">
+            <button class="close_win"></button>
+            <div class="popup_win_ico large">
+                <img src="<?php echo THEME_URI . '/assets/images/ico-alert.svg' ?>" alt="Alert Icon">
+            </div>
+            <h4>Error!</h4>
+            <span>You uploading invalid image type or your image has a large size. Please use only JPEG, JPG, or PNG images and not more than 100Kb.</span>
+            <div class="confiramtion_buttons">
+                <a href="#" class="button close_win">OK</a>
+            </div>
+        </div>
+    </div>
+<?php endif; ?>
 <?php wp_footer(); ?>
 </body>
 </html>

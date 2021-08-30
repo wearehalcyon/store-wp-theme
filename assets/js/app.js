@@ -313,20 +313,6 @@ jQuery(document).ready(function($){
         });
     });
 
-    // Rating circle
-    var rating = $('#rating_circle').data('rating');
-    var bar = new ProgressBar.Circle(rating_circle, {
-        strokeWidth: 6,
-        easing: 'easeInOut',
-        duration: 2000,
-        color: '#4CE426',
-        trailColor: '#f0f0f0',
-        trailWidth: 6,
-        svgStyle: null
-    });
-      
-    bar.animate(rating);
-
     // Rate product - choose star
     $('.rate_product_please img').on('click', function(){
         $(this).prevAll().addClass('choosed');
@@ -345,4 +331,135 @@ jQuery(document).ready(function($){
     $('.rate_product_please img').on('mouseleave', function(){
         $('.rate_product_please img').removeClass('hovered');
     });
+
+    // Send Advanced Account Data form
+    $('form#add_account_form').on('submit', function (event) {
+        event.preventDefault();
+        $('.sending_preloader').addClass('show');
+
+        let bannerBlob = document.getElementById('banner_preview').src;
+        let avatarBlob = document.getElementById('photo_preview').src;
+
+        $.ajax({
+            url: ajax_url.url,
+            type: 'POST',
+            data: {
+                action: 'send_advanced_account_data',
+                nonce_code: ajax_url.nonce,
+                banner: bannerBlob,
+                photo: avatarBlob,
+                email: $('input[name="email"]').val(),
+                description: $('textarea[name="description"]').val(),
+                web: $('input[name="web"]').val(),
+            },
+            success: function (response) {
+                console.log(response);
+                if ( response ) {
+                    $('.sending_preloader').removeClass('show');
+                } else {
+                    $('.sending_preloader').removeClass('show');
+                }
+            }
+        });
+    });
 });
+
+/**
+ * Pure JS Scripts
+ * @type {Element}
+ */
+
+// Upload banner
+let inputElement = document.querySelector('.banner')
+let bannerContainer = document.querySelector('.banner_img')
+inputElement.addEventListener("change", fileBanner, false)
+function fileBanner(event) {
+    let validFileTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif']
+    let fileList = event.target.files;
+    let fileType = fileList[0].type;
+    let fileData = fileList[0]
+    let imageBannerTag = document.getElementById('banner_preview')
+
+    console.log(fileList[0])
+
+    if (validFileTypes.includes(fileType) && fileData.size <= 250000) {
+        if (imageBannerTag) {
+            imageBannerTag.remove()
+        }
+
+        let fileReader = new FileReader()
+        fileReader.onload = () => {
+            let fileURL = fileReader.result
+
+            let bannerImgTag = document.createElement("img")
+            bannerImgTag.src = fileURL
+            bannerImgTag.setAttribute('id', 'banner_preview')
+            bannerContainer.appendChild(bannerImgTag)
+            document.querySelector('.banner_name').value = fileData.name
+        }
+        fileReader.readAsDataURL(fileData)
+    }
+    else {
+        event.target.value = '';
+        let errorPopup = document.querySelector('.invalid_add_image')
+        errorPopup.classList.add('active')
+    }
+}
+
+// Remove banner
+function removeBanner(event){
+    event.preventDefault()
+    let imageBannerTag = document.getElementById('banner_preview')
+    let inputBanner = document.getElementById('set_banner')
+    if (imageBannerTag) {
+        imageBannerTag.remove()
+        inputBanner.value = ''
+    }
+}
+
+
+// Upload banner
+let photoElement = document.querySelector('.photo')
+let photoContainer = document.querySelector('.photo_container')
+inputElement.addEventListener("change", filePhoto, false)
+function filePhoto(event) {
+    let validFileTypes = ['image/jpeg', 'image/jpg', 'image/png']
+    let fileList = event.target.files;
+    let fileType = fileList[0].type;
+    let fileData = fileList[0]
+    let imageBannerTag = document.getElementById('photo_preview')
+
+    if (validFileTypes.includes(fileType) && fileData.size <= 100000) {
+        if (imageBannerTag) {
+            imageBannerTag.remove()
+        }
+
+        let fileReader = new FileReader()
+        fileReader.onload = () => {
+            let fileURL = fileReader.result
+
+            let bannerImgTag = document.createElement("img")
+            bannerImgTag.src = fileURL
+            bannerImgTag.setAttribute('id', 'photo_preview')
+            photoContainer.appendChild(bannerImgTag)
+            document.querySelector('.photo_name').value = fileData.name
+        }
+        fileReader.readAsDataURL(fileData)
+    }
+    else {
+        event.target.value = '';
+        let errorPopup = document.querySelector('.invalid_add_photo')
+        errorPopup.classList.add('active')
+    }
+}
+
+// Remove banner
+function removePhoto(event){
+    event.preventDefault()
+    let imageBannerTag = document.getElementById('photo_preview')
+    let inputBanner = document.getElementById('set_photo')
+    if (imageBannerTag) {
+        imageBannerTag.remove()
+        inputBanner.value = ''
+    }
+}
