@@ -702,3 +702,39 @@ function remove_item_req_form_ajax_form()
 		wp_die();
 	}
 }
+
+// Add item action
+add_action('init', 'add_item_action', 100);
+function add_item_action(){
+	if (isset($_GET['page']) == 'add-item' && isset($_GET['action']) == 'send') {
+		global $wpdb;
+
+		$table = $wpdb->prefix . 'product_add_requests';
+
+		$user_id = $_POST['user_id'];
+		$title = $_POST['title'];
+		$description = $_POST['description'];
+		$category = $_POST['category'];
+		$subcategory = $_POST['subcategory'];
+		$plugins = $_POST['plugins'];
+		$additional_plugins = $_POST['additional_plugins'];
+		$price = $_POST['price'];
+		$archive_link = $_POST['archive'];
+		$confirmation = $_POST['confirmation'];
+
+		$wpdb->query($table, [
+			'user_id' => $user_id,
+			'title' => $title,
+			'description' => $description,
+			'category' => $category,
+			'subcategory' => $subcategory,
+			'plugins' => $plugins,
+			'additional_plugins' => $additional_plugins,
+			'price' => $price,
+			'archive_link' => $archive_link,
+			'confirmation' => $confirmation
+		], [ '%s', '%d' ]);
+
+		wp_safe_redirect(home_url('/account/advanced-data/'), 301);
+	}
+}

@@ -1468,6 +1468,21 @@ ul.account_nav {
   display: inline-block;
   margin-left: 5px;
 }
+.formcontrol .subcategories {
+  display: none;
+  position: relative;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+.formcontrol .subcategories.show {
+  display: block;
+}
+.formcontrol label {
+  display: block;
+}
+.formcontrol label input {
+  margin-right: 10px;
+}
 .formcontrol input[type=text] {
   width: 100%;
   border-radius: 6px;
@@ -3236,8 +3251,8 @@ body.woocommerce-checkout article.page #payment.woocommerce-checkout-payment but
      object-fit: cover;
 }
 .add_data.item_data .desc {
-  width: calc(100% - 300px);
-  padding-left: 15px;
+  position: relative;
+  width: 100%;
 }
 .add_data.item_data .desc .exc {
   margin-top: 0;

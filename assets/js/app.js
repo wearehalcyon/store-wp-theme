@@ -360,6 +360,14 @@ jQuery(document).ready(function($){
         });
     });
 
+    // Add item radio changer
+    $('input.category').on('click', function(){
+        let target = $(this).data('target');
+
+        $('.subcategories').removeClass('show');
+        $('.' + target).addClass('show');
+    });
+
     // Progress bar
     if ($(".product-rating").length > 0) {
         $(".product-rating").loading();

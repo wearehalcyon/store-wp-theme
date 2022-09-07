@@ -1430,6 +1430,21 @@ ul.account_nav{
       margin-left: 5px;
     }
   }
+  .subcategories{
+    display: none;
+    position: relative;
+    padding: 10px;
+    margin-bottom: 20px;
+    &.show{
+      display: block;
+    }
+  }
+  label{
+    display: block;
+    input{
+      margin-right: 10px;
+    }
+  }
   input[type="text"]{
     width: 100%;
     border-radius: 6px;
@@ -3108,8 +3123,8 @@ body.woocommerce-checkout{
     }
   }
   .desc{
-    width: calc(100% - 300px);
-    padding-left: 15px;
+    position: relative;
+    width: 100%;
     .exc{
       margin-top: 0;
       text-align: left;
