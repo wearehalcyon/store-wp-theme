@@ -44,6 +44,7 @@ function become_manufacturer_adminpage_callback()
         );
         return wp_safe_redirect('/wp-admin/admin.php?page=market-tools', 301);
     } elseif (isset($_GET['review']) && isset($_GET['action'])) {
+        
         $wpdb->update(
             $table_name,
             [
@@ -54,6 +55,13 @@ function become_manufacturer_adminpage_callback()
                 'public_id' => $id
             ]
         );
+        if ($_POST['conclusion'] == 'approved') {
+            $role = 'manufacturer';
+        } else {
+            $role = 'customer';
+        }
+        $u = new WP_User( $_GET['uid'] );
+        $u->set_role( $role );
         return wp_safe_redirect('/wp-admin/admin.php?page=market-tools', 301);
     } elseif (isset($_GET['page']) == 'market-tools' && isset($_GET['review'])) {
         require 'pages/page-become-manufacturer-review.php';

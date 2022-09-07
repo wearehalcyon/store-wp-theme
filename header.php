@@ -8,6 +8,7 @@
  *
  * @package INTAKE_DIgital
  */
+$aad = get_advanced_account_data(get_current_user_id())[0];
 if ( isset( $_GET['qcart'] ) == 'empty' ) {
 	$redirect = home_url($_SERVER['REQUEST_URI']);
 	WC()->cart->empty_cart();
@@ -46,7 +47,11 @@ if ( isset( $_GET['qcart'] ) == 'empty' ) {
 		<div class="account">
 			<?php if ( is_user_logged_in() ) : ?>
 				<a href="<?php echo wc_get_page_permalink( 'myaccount' ); ?>">My Account</a>
-				<img src="<?php echo get_avatar_url(get_current_user_id()); ?>" alt="User Avatar Not Installed">
+				<?php if ($aad->avatar) : ?>
+					<img class="top-pan-avatar top-pan-avatar-uploaded" src="<?php echo $aad->avatar; ?>" data-avatar="<?php echo get_template_directory_uri() . '/assets/images/no-avatar.svg'; ?>" alt="User Avatar">
+				<?php else : ?>
+					<img class="top-pan-avatar" src="<?php echo get_template_directory_uri() . '/assets/images/no-avatar.svg'; ?>" data-avatar="<?php echo get_template_directory_uri() . '/assets/images/no-avatar.svg'; ?>" alt="User Avatar Not Installed">
+				<?php endif; ?>
 			<?php else : ?>
 				<a href="#signin" class="open_signin">Sign In</a>
 			<?php endif; ?>

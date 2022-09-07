@@ -23,8 +23,12 @@ global $product;
 if ( empty( $product ) || ! $product->is_visible() ) {
 	return;
 }
+
+if (is_shop() || is_product_category()) {
+	$row_class = ' product-col';
+}
 ?>
-<li class="product_item fresh_item">
+<li class="product_item fresh_item<?php echo $row_class; ?>">
 	<a href="<?php the_permalink(); ?>">
 		<img src="<?php echo get_the_post_thumbnail_url(get_the_ID(), 'small'); ?>" alt="<?php the_title(); ?>">
 		<h4><?php the_title(); ?></h4>

@@ -8,6 +8,11 @@
  * @package INTAKE_DIgital
  */
 
+/**
+ * Hide admin bar
+ */
+//show_admin_bar(false);
+
 function woocommerce_theme_support() {
     add_theme_support( 'woocommerce' );
 }
@@ -161,14 +166,19 @@ function intake_digital_scripts()
 	wp_enqueue_style('intake-digital-style', get_stylesheet_uri(), array(), _S_VERSION);
 	wp_enqueue_style('intake-digital-owl-theme', get_template_directory_uri() . '/assets/css/owl.theme.default.min.css', array(), _S_VERSION);
 	wp_enqueue_style('intake-digital-owl-slider', get_template_directory_uri() . '/assets/css/owl.carousel.min.css', array(), _S_VERSION);
+	wp_enqueue_style('intake-digital-nice-select', get_template_directory_uri() . '/assets/css/nice-select.css', array(), _S_VERSION);
 	wp_enqueue_style('intake-digital-main-style', get_template_directory_uri() . '/assets/css/app.css', array(), filemtime(__DIR__ . '/assets/css/app.css'));
 	wp_style_add_data('intake-digital-style', 'rtl', 'replace');
 
 	wp_enqueue_script('intake-digital-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true);
 	wp_enqueue_script('intake-digital-owl-slider', get_template_directory_uri() . '/assets/js/owl.carousel.min.js', array('jquery'), _S_VERSION, true);
+	wp_enqueue_script('intake-digital-nice-select', get_template_directory_uri() . '/assets/js/nice-select.min.js', array('jquery'), _S_VERSION, true);
 	if ( is_product() ) {
-		wp_enqueue_script('intake-digital-pjax', get_template_directory_uri() . '/assets/js/progressbar.js', array('jquery'), _S_VERSION, true);
-        wp_enqueue_script('intake-digital-pjax', get_template_directory_uri() . '/assets/js/progress-bar.js', array('jquery'), _S_VERSION, true);
+		wp_enqueue_script('intake-digital-progressbar', get_template_directory_uri() . '/assets/js/progressbar.js', array('jquery'), _S_VERSION, true);
+        wp_enqueue_script('intake-digital-progress-bar', get_template_directory_uri() . '/assets/js/progress-bar.js', array('jquery'), _S_VERSION, true);
+		if (get_field('audio_file')) {
+			wp_enqueue_script('intake-digital-wavesurfer', get_template_directory_uri() . '/assets/js/wavesurfer.js', array('jquery'), _S_VERSION, true);
+		}
 	}
     wp_register_script( 'app-scripts', get_template_directory_uri() . '/assets/js/app.js', array( 'jquery' ), filemtime(__DIR__ . '/assets/js/app.js'), true );
     wp_enqueue_script( 'app-scripts');
@@ -252,11 +262,6 @@ register_nav_menus(array(
 	'aside-bottom' => 'Aside Sidebar Bottom',
 	'footer-menu' => 'Footer Menu'
 ));
-
-/**
- * Hide admin bar
- */
-show_admin_bar(false);
 
 // Custom body classes
 add_filter('body_class', 'intake_digital_custom_body_classes');
@@ -573,6 +578,17 @@ function get_advanced_account_data($id){
     return $request;
 }
 
+// Become manufacturer
+function get_become_manufacturer($user_id = null){
+	global $wpdb;
+
+	$table_name = $wpdb->prefix . 'become_manufacturer_requests';
+
+	$request = $wpdb->get_results("SELECT * FROM $table_name WHERE (`user_id` = $user_id)");
+
+    return $request;	
+}
+
 // Update Advanced Account Data
 if( WP_DEBUG && WP_DEBUG_DISPLAY && (defined('DOING_AJAX') && DOING_AJAX) ){
     @ ini_set( 'display_errors', 1 );
@@ -587,11 +603,21 @@ function send_advanced_account_data(){
     $table_name = $wpdb->prefix . 'user_advanced_data';
     $created = $wpdb->get_results("SELECT * FROM $table_name WHERE (`user_id` = $id)");
 
-    $banner = $_POST['banner'] ? $_POST['banner'] : null;
-    $photo  = $_POST['photo'] ? $_POST['photo'] : null;
-    $email  = $_POST['email'] ? $_POST['email'] : null;
+	$photo_permalink = filter_var($_POST['photo'], FILTER_VALIDATE_URL);
+	$bannr_permalink = filter_var($_POST['banner'], FILTER_VALIDATE_URL);
+
+    $banner   = $_POST['banner'] != $bannr_permalink ? $_POST['banner'] : null;
+    $photo    = $_POST['photo'] != $photo_permalink ? $_POST['photo'] : null;
+    $email    = $_POST['email'] ? $_POST['email'] : null;
     $description = $_POST['description'] ? $_POST['description'] : null;
-    $web    = $_POST['web'] ? $_POST['web'] : null;
+    $web      = $_POST['web'] ? $_POST['web'] : null;
+	$nickname = $_POST['nickname'] ? $_POST['nickname'] : time();
+
+	update_user_meta( $id, 'nickname', $nickname );
+	wp_update_user( array(
+		'ID'            => $id,
+		'user_nicename' => $nickname
+	) );
 
     if ($created) {
         $wpdb->update(
@@ -624,4 +650,55 @@ function send_advanced_account_data(){
     } else {
         echo false;
     }
+}
+
+// Remove checkout fields
+add_filter( 'woocommerce_checkout_fields', 'wc_remove_checkout_fields' );
+function wc_remove_checkout_fields( $fields ){
+	unset( $fields['order']['order_comments'] );
+	// Billing fields
+	unset( $fields['billing']['billing_company'] );
+	unset( $fields['billing']['billing_state'] );
+	unset( $fields['billing']['billing_address_1'] );
+	unset( $fields['billing']['billing_address_2'] );
+	unset( $fields['billing']['billing_city'] );
+	unset( $fields['billing']['billing_postcode'] );
+	unset( $fields['billing']['billing_phone'] );
+	unset( $fields['billing']['billing_country'] );
+	return $fields;
+}
+
+// Remove Item Request
+add_action('wp_ajax_nopriv_remove_item_req_form', 'remove_item_req_form_ajax_form');
+add_action('wp_ajax_remove_item_req_form', 'remove_item_req_form_ajax_form');
+function remove_item_req_form_ajax_form()
+{
+	global $wpdb, $post, $current_user;
+
+	$table_name = $wpdb->prefix . 'admin_notifications';
+
+	$item_id = base64_decode($_POST['item_id']);
+
+	$subject = $_POST['subject'];
+	$user_id = $_POST['user_id'];
+	$message = $_POST['message'];
+	$status = 4; // 1 - responded, 2 - readed, 3 - closed, 4 - new
+
+	if ( !empty($message) ) {
+		$wpdb->insert($table_name, [
+			'user_id' => $user_id,
+			'subject' => $subject . ' [Item ID: ' . $item_id . ']',
+			'message' => $message,
+			'date' => date('Y-m-d H:i:s'),
+			'status' => $status
+		]);
+		$response = true;
+	} else {
+		$response = false;
+	}
+
+	if (defined('DOING_AJAX') && DOING_AJAX) {
+		echo $response;
+		wp_die();
+	}
 }

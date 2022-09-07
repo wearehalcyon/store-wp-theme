@@ -47,6 +47,7 @@ defined( 'ABSPATH' ) || exit;
 
 	<?php endif; ?>
 </div>
+<?php if (1 == 2) : ?>
 <div class="woocommerce-additional-fields">
 	<?php do_action( 'woocommerce_before_order_notes', $checkout ); ?>
 
@@ -68,3 +69,4 @@ defined( 'ABSPATH' ) || exit;
 
 	<?php do_action( 'woocommerce_after_order_notes', $checkout ); ?>
 </div>
+<?php endif;

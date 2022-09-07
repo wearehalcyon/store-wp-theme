@@ -16,6 +16,19 @@ $args = array(
 );
 $users_list = get_users( $args );
 
+if (isset($_GET['manu'])) {
+    if (get_author_name( $_GET['manu'] )) {
+        $manu_name = '<span style="font-weight: 600;">' . get_author_name( $_GET['manu'] ) . '</span>';
+    } else {
+        $manu_name = '<span style="color: #f00; font-weight: 600;">ERROR - ACCOUNT WITH THIS ID IS NOT FOUND!</span>';
+    }
+
+    if ($_GET['manu'] != 1) {
+        $manu_id = $_GET['manu'];
+    } else {
+        $manu_id = false;
+    }
+}
 
 ?>
 
@@ -37,8 +50,8 @@ $users_list = get_users( $args );
                 <p class="formcontrol">
                     <input type="hidden" value="<?php echo $current_user->ID; ?>" class="sender_id">
                     <label>
-                        <strong>User ID</strong>
-                        <input type="user_id" name="user_id" placeholder="Example: 110" class="user_id" required>
+                        <strong>User ID<?php echo $manu_id ? ' <span style="display: block; font-size: 14px; font-weight: 400; margin-bottom: 10px;">Added automatically from redirect request. Current ID is ' . $manu_id . ' and you will send message to ' . $manu_name . '</span>' : null; ?></strong>
+                        <input type="user_id" name="user_id" placeholder="Example: 110" class="user_id" value="<?php echo $manu_id; ?>" required>
                     </label>
                 </p>
                 <div class="compose_user_list">

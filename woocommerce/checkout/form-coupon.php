@@ -20,7 +20,7 @@ defined( 'ABSPATH' ) || exit;
 if ( ! wc_coupons_enabled() ) { // @codingStandardsIgnoreLine.
 	return;
 }
-
+if (1 == 2) :
 ?>
 <div class="woocommerce-form-coupon-toggle">
 	<?php wc_print_notice( apply_filters( 'woocommerce_checkout_coupon_message', esc_html__( 'Have a coupon?', 'woocommerce' ) . ' <a href="#" class="showcoupon">' . esc_html__( 'Click here to enter your code', 'woocommerce' ) . '</a>' ), 'notice' ); ?>
@@ -40,3 +40,4 @@ if ( ! wc_coupons_enabled() ) { // @codingStandardsIgnoreLine.
 
 	<div class="clear"></div>
 </form>
+<?php endif;

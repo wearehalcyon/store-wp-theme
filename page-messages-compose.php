@@ -26,7 +26,7 @@ get_header();
 		if ( is_user_logged_in() ) {
 			get_template_part('template-parts/content', 'messages-compose');
 		} else {
-			echo '<h1>Error 404. Page not found.</h1>';
+			echo '<h1>Error 404. Page not found. Try again or sign in to continue.</h1>';
 		}
 
 	endwhile; // End of the loop.

@@ -194,9 +194,7 @@ if ( post_password_required() ) {
 								}
 							?>
 						</div>
-						<div id="rating_circle" class="rating_circle" data-rating="<?php echo $dataRating; ?>">
-							<?php echo round($rating, 1); ?>
-						</div>
+						<div class="product-rating rating_circle" data-points="<?php echo round($rating, 1); ?>" data-percent="<?php $rating = (100 / 5) * round($rating, 1); echo $rating; ?>" data-duration="1000" data-color="#f4f4f4, #4CE426"></div>
 					</div>
 				</div>
 				<div class="product_info">
@@ -205,7 +203,13 @@ if ( post_password_required() ) {
 						<?php if ( $product->get_price() ) : ?>
 							<div class="product_price">
 								<span class="product_price_range free_item">
-									<?php echo get_woocommerce_currency_symbol() . $product->get_price(); ?>
+									<?php
+										if ($product->sale_price) {
+											echo get_woocommerce_currency_symbol() . $product->sale_price . '<span class="old_price">' . get_woocommerce_currency_symbol() . $product->regular_price . '</span>';
+										} else {
+											echo get_woocommerce_currency_symbol() . $product->regular_price;
+										}
+									?>
 								</span>
 							</div>
 						<?php endif; ?>

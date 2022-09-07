@@ -1,14 +1,16 @@
 'use_strict';
 
 jQuery(document).ready(function($){
+    // Nice Select init
+    $('.orderby').niceSelect();
     // Categories
     $('.all-categories-slider').owlCarousel({
         autoplay: true,
         autoplayTimeout: 3000,
         autoplayHoverPause: true,
         loop: true,
-        nav: true,
-        dots: false,
+        nav: false,
+        dots: true,
         smartSpeed: 450,
         responsive:{
             0:{
@@ -131,7 +133,6 @@ jQuery(document).ready(function($){
                 date: $('.date').val()
             },
             success: function (response) {
-                console.log(response);
                 if (response) {
                     $('.become_manufacturer').removeClass('active');
                     $('body').removeClass('scoll-disable');
@@ -179,7 +180,6 @@ jQuery(document).ready(function($){
             success: function (response) {
                 $('.respond_txtarea').val('');
                 $('span.sending_message_badge').removeClass('show');
-                console.log(response);
             }
         });
     });
@@ -224,7 +224,6 @@ jQuery(document).ready(function($){
             },
             success: function (response) {
                 $('.message-' + ID).fadeOut(200);
-                console.log(response);
             }
         });
     });
@@ -276,7 +275,6 @@ jQuery(document).ready(function($){
                     $('.messages_alerts .message.notsent').addClass('show');
                 }
                 $('.loading_spiner').removeClass('show');
-                console.log(response);
             }
         });
     });
@@ -297,7 +295,6 @@ jQuery(document).ready(function($){
                 rating: $('input[name="rating"]').val()
             },
             success: function (response) {
-                console.log(response);
                 if ( response ) {
                     $('.sending_preloader').removeClass('show');
                     $('textarea#comment').val('');
@@ -351,9 +348,9 @@ jQuery(document).ready(function($){
                 email: $('input[name="email"]').val(),
                 description: $('textarea[name="description"]').val(),
                 web: $('input[name="web"]').val(),
+                nickname: $('input[name="nickname"]').val(),
             },
             success: function (response) {
-                console.log(response);
                 if ( response ) {
                     $('.sending_preloader').removeClass('show');
                 } else {
@@ -361,6 +358,69 @@ jQuery(document).ready(function($){
                 }
             }
         });
+    });
+
+    // Progress bar
+    if ($(".product-rating").length > 0) {
+        $(".product-rating").loading();
+    }
+
+    // Manufacturer remove item request
+    let remove_item = $('.manufacturer_control .products_list .remove');
+
+    remove_item.on('click', function(event){
+        event.preventDefault();
+
+        let itemID = $(this).data('item-id'),
+            itemName = $(this).parent().parent().find('> span').text(),
+            popup = $('.remove_item_request');
+
+        popup.addClass('active');
+        $('.remove-item-name span').text('Item: ' + itemName);
+        $('input[name="item_id"]').attr('value', itemID);
+        $('input[name="item_name"]').attr('value', itemName);
+    });
+
+    $('form#remove_item_req_form').on('submit', function (event) {
+        event.preventDefault();
+        $('#remove_item_req_form .sending_preloader').addClass('show');
+
+        let itemID = $('input[name="item_id"]').val(),
+            itemName = $('input[name="item_name"]').val(),
+            uid = $(this).find('> .formcontrol').data('uid'),
+            uidval = $('input[name="uid"]').val(),
+            message = $('textarea[name="message"]').val();
+
+        if (uid == uidval) {
+            let user_id = uidval;
+            $.ajax({
+                url: ajax_url.url,
+                type: 'POST',
+                data: {
+                    action: 'remove_item_req_form',
+                    nonce_code: ajax_url.nonce,
+                    subject: 'Remove item request: ' + itemName,
+                    item_id: itemID,
+                    user_id: user_id,
+                    message: message,
+                },
+                success: function (response) {
+                    if ( response ) {
+                        $('.sending_preloader').removeClass('show');
+                        $('.remove_item_request').removeClass('active');
+                        setTimeout(function(){
+                            $('.remove_item_request_success').addClass('active');
+                        }, 300);
+                    } else {
+                        $('.sending_preloader').removeClass('show');
+                        $('.remove_item_request').removeClass('active');
+                        setTimeout(function(){
+                            $('.remove_item_request_error').addClass('active');
+                        }, 300);
+                    }
+                }
+            });
+        }
     });
 });
 
@@ -380,9 +440,7 @@ function fileBanner(event) {
     let fileData = fileList[0]
     let imageBannerTag = document.getElementById('banner_preview')
 
-    console.log(fileList[0])
-
-    if (validFileTypes.includes(fileType) && fileData.size <= 250000) {
+    if (validFileTypes.includes(fileType) && fileData.size <= 350000) {
         if (imageBannerTag) {
             imageBannerTag.remove()
         }
@@ -395,7 +453,7 @@ function fileBanner(event) {
             bannerImgTag.src = fileURL
             bannerImgTag.setAttribute('id', 'banner_preview')
             bannerContainer.appendChild(bannerImgTag)
-            document.querySelector('.banner_name').value = fileData.name
+            document.querySelector('.banner_name').value = fileURL
         }
         fileReader.readAsDataURL(fileData)
     }
@@ -412,24 +470,27 @@ function removeBanner(event){
     let imageBannerTag = document.getElementById('banner_preview')
     let inputBanner = document.getElementById('set_banner')
     if (imageBannerTag) {
-        imageBannerTag.remove()
+        imageBannerTag.setAttribute('src', '#')
+        imageBannerTag.classList.add('media-unset');
         inputBanner.value = ''
     }
 }
 
 
-// Upload banner
+// Upload avatar
 let photoElement = document.querySelector('.photo')
 let photoContainer = document.querySelector('.photo_container')
 inputElement.addEventListener("change", filePhoto, false)
 function filePhoto(event) {
     let validFileTypes = ['image/jpeg', 'image/jpg', 'image/png']
+    
     let fileList = event.target.files;
     let fileType = fileList[0].type;
     let fileData = fileList[0]
     let imageBannerTag = document.getElementById('photo_preview')
+    let topPanAvatar = document.querySelector('.top-pan-avatar')
 
-    if (validFileTypes.includes(fileType) && fileData.size <= 100000) {
+    if (validFileTypes.includes(fileType) && fileData.size <= 200000) {
         if (imageBannerTag) {
             imageBannerTag.remove()
         }
@@ -440,9 +501,10 @@ function filePhoto(event) {
 
             let bannerImgTag = document.createElement("img")
             bannerImgTag.src = fileURL
+            topPanAvatar.setAttribute('src', fileURL)
             bannerImgTag.setAttribute('id', 'photo_preview')
             photoContainer.appendChild(bannerImgTag)
-            document.querySelector('.photo_name').value = fileData.name
+            document.querySelector('.photo').value = fileURL
         }
         fileReader.readAsDataURL(fileData)
     }
@@ -453,13 +515,16 @@ function filePhoto(event) {
     }
 }
 
-// Remove banner
+// Remove avatar
 function removePhoto(event){
     event.preventDefault()
     let imageBannerTag = document.getElementById('photo_preview')
     let inputBanner = document.getElementById('set_photo')
+    let topPanAvatar = document.querySelector('.top-pan-avatar-uploaded')
+    let topPanAvatarDefault = topPanAvatar.getAttribute('data-avatar');
     if (imageBannerTag) {
-        imageBannerTag.remove()
+        imageBannerTag.setAttribute('src', '#')
+        topPanAvatar.setAttribute('src', topPanAvatarDefault)
         inputBanner.value = ''
     }
 }

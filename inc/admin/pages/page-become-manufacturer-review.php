@@ -6,6 +6,7 @@ $id = $_GET['review'];
 $table_name = $wpdb->prefix . 'become_manufacturer_requests';
 
 $request = $wpdb->get_results("SELECT * FROM $table_name WHERE (`public_id` = $id)");
+
 ?>
 <div class="wrap">
     <h1 class="wp-heading-inline"><?php echo 'Review request #' . $request[0]->public_id; ?></h1>
@@ -14,7 +15,7 @@ $request = $wpdb->get_results("SELECT * FROM $table_name WHERE (`public_id` = $i
     <h4>Type: <?php echo $request[0]->type; ?></h4>
     <p style="font-size: 16px;"><?php echo $request[0]->message; ?></p>
     <h4>Demo Link: <a href="<?php echo $request[0]->demo_link; ?>" target="_blank"><?php echo $request[0]->demo_link; ?></a></h4>
-    <form action="/wp-admin/admin.php?page=market-tools&review=<?php echo $request[0]->public_id; ?>&action=update" method="POST">
+    <form action="/wp-admin/admin.php?page=market-tools&uid=<?php echo $request[0]->user_id; ?>&review=<?php echo $request[0]->public_id; ?>&action=update" method="POST">
         <p>
             <h4>Reviewing Status</h4>
             <select name="status">

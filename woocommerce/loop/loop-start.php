@@ -18,6 +18,10 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+
+if (is_shop() || is_product_category()) {
+	$row_class = ' products-row products-row-absolute';
+}
 ?>
 <div class="fresh_releases">
-<ul class="products products-list fresh_releases_list">
+<ul class="products products-list fresh_releases_list<?php echo $row_class; ?>">
