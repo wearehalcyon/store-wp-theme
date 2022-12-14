@@ -8,14 +8,14 @@ get_header();
                     $args = [
                         'post_type' => 'product',
                         'posts_per_page' => 5,
-                        'meta_query' => [
-                            'relation' => 'AND',
-                            [
-                                'key' => '_price',
-                                'value' => 0,
-                                'compare' => '!='
-                            ]
-                        ]
+                        // 'meta_query' => [
+                        //     'relation' => 'AND',
+                        //     [
+                        //         'key' => '_price',
+                        //         'value' => 0,
+                        //         'compare' => '!='
+                        //     ]
+                        // ]
                     ];
                     $query = new WP_Query($args);
                     if ( $query->have_posts() ) :
@@ -23,8 +23,11 @@ get_header();
                     <h2 class="home_section_title">Fresh Items<a href="#">View All</a></h2>
                     <div class="fresh_releases_list">
                         <?php while( $query->have_posts() ) : $query->the_post(); $_product = wc_get_product( get_the_ID() ); ?>
-                            <div class="fresh_item">
+                            <div class="fresh_item<?php echo $_product->is_on_sale() ? ' on_sale' : null; echo $_product->get_price() < 1 ? ' free_item' : null; ?>">
                                 <a href="<?php the_permalink(); ?>">
+                                    <?php if (get_field('black_friday')) : ?>
+                                        <span class="black_friday_badge">BLACK FRIDAY</span>
+                                    <?php endif; ?>
                                     <div class="item_cover">
                                         <img src="<?php echo get_the_post_thumbnail_url(get_the_ID(), 'small'); ?>" alt="<?php the_title(); ?>">
                                     </div>

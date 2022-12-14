@@ -30,7 +30,9 @@ $has_messages = get_new_messages();
 
 <nav class="woocommerce-MyAccount-navigation">
 	<ul class="account_nav">
+		<?php if (1 == 2) : ?>
         <li><?php echo $has_messages ? '<span class="new_message"></span>' : false; ?><a href="<?php echo home_url('/account/msg/'); ?>">Messages</a></li>
+		<?php endif; ?>
         <li><a href="<?php echo home_url('/account/advanced-data/'); ?>">Advanced Data</a></li>
 		<?php foreach ( wc_get_account_menu_items() as $endpoint => $label ) : ?>
 			<li class="<?php echo wc_get_account_menu_item_classes( $endpoint ); ?>">
@@ -43,9 +45,10 @@ $has_messages = get_new_messages();
 			<?php
 				$request_data = get_manufacturer_request($current_user->id);
 				if (!$request_data && $request_data[0]->conclusion != 'rejected') :
+					if (1 == 2) :
 			?>
 				<a href="#become_manufacturer" class="button-light get_become_manufacturer">Become Manufacturer</a>
-			<?php elseif ($request_data && $request_data[0]->conclusion == 'approved') : ?>
+			<?php endif; elseif ($request_data && $request_data[0]->conclusion == 'approved') : ?>
 				<div class="already_sent_request approved">
 					<p>
 						You request approved!

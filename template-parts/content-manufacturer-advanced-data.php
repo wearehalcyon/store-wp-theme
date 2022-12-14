@@ -4,6 +4,7 @@
     $manumeta = get_user_meta(get_current_user_id());
 ?>
 <div class="add_data">
+    <?php if (1 == 2) : ?>
     <div class="<?php echo $manu->type ? 'account_status type_defined' : 'account_status type_undefined'; ?>">
         <div class="manu_column left">
             <strong>Manufacturer Type:</strong> <?php echo $manu->type ? ucfirst($manu->type . ' Manufacturer') : 'Not Assigned'; ?>
@@ -36,6 +37,7 @@
         </div>
     </div>
     <p><?php esc_html_e('Leave a request for withdrawal of funds, and we will consider it as soon as possible.'); ?></p>
+    <?php endif; ?>
     <h2><?php esc_html_e('Update your details'); ?></h2>
     <form id="add_account_form" class="add_form" method="post" enctype="multipart/form-data">
         <div class="formcontrol">
@@ -121,7 +123,7 @@
             <img src="<?php echo THEME_URI . '/assets/images/loading-spiner.svg' ?>" alt="Sending...">
         </div>
     </form>
-    <?php if ($manu->conclusion != 'NaN' && $manu->conclusion != 'rejected') : ?>
+    <?php if ($manu->conclusion != 'NaN' && $manu->conclusion != 'rejected' && 1 == 2) : ?>
         <div class="formcontrol manufacturer_control">
             <h2>Manufacturer Area</h2>
             <div class="manufacturer_form_description">

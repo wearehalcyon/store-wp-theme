@@ -12,9 +12,11 @@
             </div>
             <div class="meta">
                 <h1 class="name"><?php echo get_author_name( $author ); ?></h1>
+                <?php if (1 == 2) : ?>
                 <div class="actions">
                     <a href="<?php echo home_url('/account/msg/compose/?manu=' . $author); ?>">Message</a>
                 </div>
+                <?php endif; ?>
             </div>
         </div>
     </section>

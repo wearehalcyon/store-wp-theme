@@ -5,6 +5,8 @@ $gray: #ECECEC;
 $green: #4CE426;
 $error: #a81313;
 $baseWhite: #fff;
+$baseBlack: #000;
+$red: #f00;
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
@@ -249,7 +251,6 @@ body.admin-bar .sidebar{
       &.nofill.current_page_item a svg path,
       &.nofill a:active svg path{
         stroke: $blue;
-        fill: none;
       }
       a:active svg path{
         fill: $blue;
@@ -524,6 +525,61 @@ main.main{
         }
         &:last-child{
           margin-right: 0px;
+        }
+        &.on_sale{
+          position: relative;
+          &::before{
+            content: 'SALE!';
+            display: inline-block;
+            position: absolute;
+            width: auto;
+            height: auto;
+            font-size: 16px;
+            font-weight: 600;
+            color: $baseWhite;
+            animation: sale_badge_animation 1s infinite;
+            padding: 3px 10px;
+            top: 25px;
+            right: 25px;
+            border-radius: 4px;
+            text-shadow: 1px 1px 1px rgba(0,0,0,.4);
+            z-index: 2;
+          }
+        }
+        &.free_item{
+          position: relative;
+          &::after{
+            content: 'FREE!';
+            display: inline-block;
+            position: absolute;
+            width: auto;
+            height: auto;
+            font-size: 16px;
+            font-weight: 600;
+            color: $baseWhite;
+            animation: free_badge_animation 1s infinite;
+            padding: 3px 10px;
+            top: 25px;
+            right: 25px;
+            border-radius: 4px;
+            text-shadow: 1px 1px 1px rgba(0,0,0,.4);
+            z-index: 2;
+          }
+        }
+        .black_friday_badge{
+          display: inline-block;
+          position: absolute;
+          top: 25px;
+          left: 25px;
+          border-radius: 4px;
+          padding: 3px 10px;
+          width: auto;
+          height: auto;
+          font-size: 16px;
+          font-weight: 600;
+          color: $baseBlack;
+          background-color: #ff9200;
+          z-index: 2;
         }
       }
     }
@@ -3226,4 +3282,34 @@ body.woocommerce-checkout{
       margin-right: 0px;
     }
   }
+}
+
+// Animations
+@keyframes sale_badge_animation {
+  0%{
+    background-color: #f8a9a9;
+  }
+  50%{
+    background-color: #f00;
+  }
+  100%{
+    background-color: #f8a9a9;
+  }
+}
+
+@keyframes free_badge_animation {
+  0%{
+    background-color: #b6f7b4;
+  }
+  50%{
+    background-color: #20d619;
+  }
+  100%{
+    background-color: #b6f7b4;
+  }
+}
+
+// Woocommerce styles
+.woocommerce-page .cover{
+  width: 100%;
 }

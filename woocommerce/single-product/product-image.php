@@ -15,9 +15,15 @@
 	 * @version 3.5.1
 	 */
 	global $post;
+
+	if (wp_is_mobile()) {
+		$cover_size = 'medium';
+	} else {
+		$cover_size = 'large';
+	}
 ?>
 <div class="product_card_display">
-	<img class="cover" src="<?php echo get_the_post_thumbnail_url($post->ID, 'medium'); ?>" alt="<?php the_title(); ?>">
+	<img class="cover" src="<?php echo get_the_post_thumbnail_url($post->ID, $cover_size); ?>" alt="<?php the_title(); ?>">
 	<?php if (get_field('audio_file')) : ?>
 		<div class="audio_preview">
 			<h4><?php esc_html_e('Preview'); ?></h4>

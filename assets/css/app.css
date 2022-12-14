@@ -253,7 +253,6 @@ body.admin-bar .sidebar {
 }
 .sidebar ul li.nofill.current_page_item a svg path, .sidebar ul li.nofill a:active svg path {
   stroke: #007bec;
-  fill: none;
 }
 .sidebar ul li a:active svg path {
   fill: #007bec;
@@ -532,6 +531,63 @@ main.main .fresh_releases .fresh_releases_list .fresh_item a button:hover {
 }
 main.main .fresh_releases .fresh_releases_list .fresh_item:last-child {
   margin-right: 0px;
+}
+main.main .fresh_releases .fresh_releases_list .fresh_item.on_sale {
+  position: relative;
+}
+main.main .fresh_releases .fresh_releases_list .fresh_item.on_sale::before {
+  content: "SALE!";
+  display: inline-block;
+  position: absolute;
+  width: auto;
+  height: auto;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  -webkit-animation: sale_badge_animation 1s infinite;
+          animation: sale_badge_animation 1s infinite;
+  padding: 3px 10px;
+  top: 25px;
+  right: 25px;
+  border-radius: 4px;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4);
+  z-index: 2;
+}
+main.main .fresh_releases .fresh_releases_list .fresh_item.free_item {
+  position: relative;
+}
+main.main .fresh_releases .fresh_releases_list .fresh_item.free_item::after {
+  content: "FREE!";
+  display: inline-block;
+  position: absolute;
+  width: auto;
+  height: auto;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  -webkit-animation: free_badge_animation 1s infinite;
+          animation: free_badge_animation 1s infinite;
+  padding: 3px 10px;
+  top: 25px;
+  right: 25px;
+  border-radius: 4px;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4);
+  z-index: 2;
+}
+main.main .fresh_releases .fresh_releases_list .fresh_item .black_friday_badge {
+  display: inline-block;
+  position: absolute;
+  top: 25px;
+  left: 25px;
+  border-radius: 4px;
+  padding: 3px 10px;
+  width: auto;
+  height: auto;
+  font-size: 16px;
+  font-weight: 600;
+  color: #000;
+  background-color: #ff9200;
+  z-index: 2;
 }
 main.main .other_content {
   background-color: #F8F8F8;
@@ -3354,4 +3410,53 @@ body.woocommerce-checkout article.page #payment.woocommerce-checkout-payment but
 }
 .main.site-main.manu-content .fresh_item:last-child {
   margin-right: 0px;
+}
+
+@-webkit-keyframes sale_badge_animation {
+  0% {
+    background-color: #f8a9a9;
+  }
+  50% {
+    background-color: #f00;
+  }
+  100% {
+    background-color: #f8a9a9;
+  }
+}
+
+@keyframes sale_badge_animation {
+  0% {
+    background-color: #f8a9a9;
+  }
+  50% {
+    background-color: #f00;
+  }
+  100% {
+    background-color: #f8a9a9;
+  }
+}
+@-webkit-keyframes free_badge_animation {
+  0% {
+    background-color: #b6f7b4;
+  }
+  50% {
+    background-color: #20d619;
+  }
+  100% {
+    background-color: #b6f7b4;
+  }
+}
+@keyframes free_badge_animation {
+  0% {
+    background-color: #b6f7b4;
+  }
+  50% {
+    background-color: #20d619;
+  }
+  100% {
+    background-color: #b6f7b4;
+  }
+}
+.woocommerce-page .cover {
+  width: 100%;
 }/*# sourceMappingURL=app.css.map */
