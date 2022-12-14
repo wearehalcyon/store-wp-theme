@@ -738,3 +738,9 @@ function add_item_action(){
 		wp_safe_redirect(home_url('/account/advanced-data/'), 301);
 	}
 }
+
+// Enable author to product editor
+// function add_author_support_to_products() {
+// 	add_post_type_support( 'product', 'author' );
+// }
+// add_action( 'init', 'add_author_support_to_products' );
