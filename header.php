@@ -73,6 +73,12 @@ if ( isset( $_GET['qcart'] ) == 'empty' ) {
 			<?php endif; ?>
 		</div>
 	</header><!-- #masthead -->
+	<div class="mobile-menu-container">
+		<div class="mmc-window">
+			<h4 class="mmc-title">Menu</h4>
+			<button class="mmc-close" title="Close Menu" name="close_menu"><span>✕</span></button>
+		</div>
+	</div>
 	<aside class="sidebar">
 		<?php
 			wp_nav_menu([

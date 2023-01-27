@@ -436,7 +436,7 @@ jQuery(document).ready(function($){
     open_search.on('click', function(event){
         event.preventDefault();
 
-        $('.search').addClass('active');
+        $('.search').toggle('active');
     });
 });
 
