@@ -436,7 +436,11 @@ jQuery(document).ready(function($){
     open_search.on('click', function(event){
         event.preventDefault();
 
-        $('.search').toggle('active');
+        if ($('.search').hasClass('active')) {
+            $('.search').addClass('active');
+        } else {
+            $('.search').removeClass('active');
+        }
     });
 });
 
