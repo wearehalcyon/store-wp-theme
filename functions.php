@@ -309,7 +309,7 @@ function become_manufacturer_ajax_form()
 	$message = $_POST['message'];
 	$demo_link = $_POST['demo_link'];
 	$date = $_POST['date'];
-	
+
 	if (!empty($type) && !empty($message) && !empty($demo_link)) {
 		$wpdb->insert($table_name, [
 			'user_id' => $user_id,
@@ -586,7 +586,7 @@ function get_become_manufacturer($user_id = null){
 
 	$request = $wpdb->get_results("SELECT * FROM $table_name WHERE (`user_id` = $user_id)");
 
-    return $request;	
+    return $request;
 }
 
 // Update Advanced Account Data
@@ -656,6 +656,9 @@ function send_advanced_account_data(){
 add_filter( 'woocommerce_checkout_fields', 'wc_remove_checkout_fields' );
 function wc_remove_checkout_fields( $fields ){
 	unset( $fields['order']['order_comments'] );
+    unset( $fields['billing']['billing_first_name'] );
+    unset( $fields['billing']['billing_last_name'] );
+
 	// Billing fields
 	unset( $fields['billing']['billing_company'] );
 	unset( $fields['billing']['billing_state'] );
@@ -665,6 +668,8 @@ function wc_remove_checkout_fields( $fields ){
 	unset( $fields['billing']['billing_postcode'] );
 	unset( $fields['billing']['billing_phone'] );
 	unset( $fields['billing']['billing_country'] );
+    unset( $fields['shipping']['shipping_first_name'] );
+    unset( $fields['shipping']['shipping_last_name'] );
 	return $fields;
 }
 

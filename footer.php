@@ -15,7 +15,7 @@ global $woocommerce, $current_user;
         <div class="footer_container">
             <div class="footer_column footer_left">
                 <a href="<?php echo home_url('/'); ?>">
-                    <img class="logo" src="<?php echo THEME_URI . '/assets/images/logo.svg'; ?>" alt="<?php bloginfo('name'); ?>"> 
+                    <img class="logo" src="<?php echo THEME_URI . '/assets/images/logo.svg'; ?>" alt="<?php bloginfo('name'); ?>">
                 </a>
                 <p>Copyright by INTAKE Digital &copy <?php echo date('Y'); ?></p>
             </div>
@@ -34,7 +34,7 @@ global $woocommerce, $current_user;
             <div class="footer_column footer_right">
                 <?php
                     $theme = wp_get_theme();
-                    echo '<a href="https://intakedigital.com/" target="_blank">INTAKE Digital</a><br>';
+                    echo '<a href="https://intakedigital.net/" target="_blank">INTAKE Digital</a><br>';
                     echo '<p>Version: ' . $theme->Version . '</p>';
                 ?>
             </div>
@@ -90,7 +90,7 @@ global $woocommerce, $current_user;
         <?php
             wp_login_form( array(
                 'echo'           => true,
-                'redirect'       => site_url( $_SERVER['REQUEST_URI'] ), 
+                'redirect'       => site_url( $_SERVER['REQUEST_URI'] ),
                 'form_id'        => 'loginform',
                 'label_username' => null,
                 'label_password' => null,
@@ -104,7 +104,7 @@ global $woocommerce, $current_user;
                 'value_username' => false,
                 'value_remember' => false,
                 'placeholder_username' => __('Test'),
-                'placeholder_remember' => false 
+                'placeholder_remember' => false
             ) );
         ?>
         <script>

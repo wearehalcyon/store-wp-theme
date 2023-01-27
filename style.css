@@ -4,7 +4,7 @@ Theme URI: https://intakedigital.com/
 Author: INTAKE Digital
 Author URI: https://intakedigital.com/
 Description: Personal INTAKE Digital Store WC template
-Version: 2.0 (build 260621) Alpha
+Version: 2.0 (build 250123) Beta
 License: Commercial
 Text Domain: idstore
 */
@@ -461,7 +461,7 @@ body {
 }
 
 @media (prefers-color-scheme: dark) {
-	
+
 }
 
 hr {

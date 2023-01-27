@@ -77,6 +77,7 @@ if ( post_password_required() ) {
 									'number' => 999999
 								]);
 								$rated_counter = 1;
+                                $rating = 0; // Fixed error with undefined variable
 								foreach ($ratings_comments as $ratings_comment) {
 									$rated_count = $rated_counter++;
 									$rating_all += $ratings_comment->rating;
@@ -222,7 +223,7 @@ if ( post_password_required() ) {
 		</div>
 		<div class="product_card reviews">
 			<div class="reviews_list">
-				<?php 
+				<?php
 					echo '<h3 class="reviews_title">Reviews</h3>';
 					$reviews = get_comments([
 						'post_id' => $post->ID,
