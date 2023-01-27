@@ -47,11 +47,17 @@ if ( isset( $_GET['qcart'] ) == 'empty' ) {
 		</div>
 		<div class="account">
 			<?php if ( is_user_logged_in() ) : ?>
-				<a href="<?php echo wc_get_page_permalink( 'myaccount' ); ?>">My Account</a>
-				<?php if ($aad->avatar) : ?>
-					<img class="top-pan-avatar top-pan-avatar-uploaded" src="<?php echo $aad->avatar; ?>" data-avatar="<?php echo get_template_directory_uri() . '/assets/images/no-avatar.svg'; ?>" alt="User Avatar">
+				<?php if (!wp_is_mobile()) : ?>
+					<a href="<?php echo wc_get_page_permalink( 'myaccount' ); ?>">My Account</a>
+					<?php if ($aad->avatar) : ?>
+						<img class="top-pan-avatar top-pan-avatar-uploaded" src="<?php echo $aad->avatar; ?>" data-avatar="<?php echo get_template_directory_uri() . '/assets/images/no-avatar.svg'; ?>" alt="User Avatar">
+					<?php else : ?>
+						<img class="top-pan-avatar" src="<?php echo get_template_directory_uri() . '/assets/images/no-avatar.svg'; ?>" data-avatar="<?php echo get_template_directory_uri() . '/assets/images/no-avatar.svg'; ?>" alt="User Avatar Not Installed">
+					<?php endif; ?>
 				<?php else : ?>
-					<img class="top-pan-avatar" src="<?php echo get_template_directory_uri() . '/assets/images/no-avatar.svg'; ?>" data-avatar="<?php echo get_template_directory_uri() . '/assets/images/no-avatar.svg'; ?>" alt="User Avatar Not Installed">
+					<a href="<?php echo wc_get_page_permalink( 'myaccount' ); ?>">
+						<img src="<?php echo THEME_URI . '/assets/images/icons/user.svg' ?>" alt="User Account" width="16" height="16">
+					</a>
 				<?php endif; ?>
 			<?php else : ?>
 				<a href="#signin" class="open_signin">
@@ -77,6 +83,16 @@ if ( isset( $_GET['qcart'] ) == 'empty' ) {
 		<div class="mmc-window">
 			<h4 class="mmc-title">Menu</h4>
 			<button class="mmc-close" title="Close Menu" name="close_menu"><span>✕</span></button>
+			<div class="mmc-menu-list">
+				<?php
+					wp_nav_menu([
+						'theme_location' => 'primary',
+						'menu_class' => false,
+						'menu_id' => false,
+						'container' => false
+					]);
+				?>
+			</div>
 		</div>
 	</div>
 	<aside class="sidebar">

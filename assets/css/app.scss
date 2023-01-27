@@ -258,11 +258,35 @@ body.woocommerce .button-delete{
         height: 26px;
         border-radius: 100%;
         top: 10px;
-        right: 10px;
+        right: 0;
+        margin-right: 10px;
         z-index: 10;
         span{
           position: relative;
           top: -1px;
+        }
+      }
+      .mmc-menu-list{
+        display: block;
+        position: relative;
+        max-height: 80%;
+        overflow-y: auto;
+        ul{
+          list-style-type: none;
+          margin: 0;
+          padding: 0;
+          li{
+            display: block;
+            margin: 10px 30px;
+            a{
+              display: block;
+              position: relative;
+              background-color: rgba(0,0,0,.1);
+              border-radius: 6px;
+              padding: 10px;
+              text-align: center;
+            }
+          }
         }
       }
     }
