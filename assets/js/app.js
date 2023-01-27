@@ -451,8 +451,10 @@ jQuery(document).ready(function($){
 
         if ($('.mobile-menu-container').hasClass('show')) {
             $('.mobile-menu-container').removeClass('show');
+            $('body').removeClass('no-scroll');
         } else {
             $('.mobile-menu-container').addClass('show');
+            $('body').addClass('no-scroll');
         }
     });
     close_mobile_menu.on('click', function(event){
