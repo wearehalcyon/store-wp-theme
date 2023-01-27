@@ -820,6 +820,12 @@ main.main .other_content .featured {
   margin-bottom: 60px;
   padding-right: 15px;
 }
+@media (max-width: 767px) {
+  main.main .other_content .featured {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+}
 main.main .other_content .featured .banner_slide {
   display: block;
   position: relative;

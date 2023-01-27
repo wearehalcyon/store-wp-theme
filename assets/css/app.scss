@@ -793,6 +793,10 @@ main.main{
       margin-top: 40px;
       margin-bottom: 60px;
       padding-right: 15px;
+      @include sm{
+        margin-top: 0;
+        margin-bottom: 0;
+      }
       .banner_slide{
         display: block;
         position: relative;
