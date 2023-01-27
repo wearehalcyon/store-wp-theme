@@ -163,6 +163,14 @@ body.woocommerce .button-delete.empty-cart-button:hover {
   align-items: center;
   justify-content: flex-end;
 }
+.site-header .account .open_mobile_menu, .site-header .account .open_search_form {
+  display: none;
+}
+@media (max-width: 767px) {
+  .site-header .account .open_mobile_menu, .site-header .account .open_search_form {
+    display: inline-block;
+  }
+}
 @media (max-width: 767px) {
   .site-header .account {
     width: auto;

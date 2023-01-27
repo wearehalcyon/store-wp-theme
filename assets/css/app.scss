@@ -161,6 +161,12 @@ body.woocommerce .button-delete{
     flex-wrap: wrap;
     align-items: center;
     justify-content: flex-end;
+    .open_mobile_menu, .open_search_form{
+      display: none;
+      @include sm{
+        display: inline-block;
+      }
+    }
     @include sm{
       width: auto;
     }
