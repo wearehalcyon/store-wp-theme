@@ -241,7 +241,12 @@ body.woocommerce .button-delete.empty-cart-button:hover {
     height: 75%;
     left: 0;
     bottom: 0;
+    transition: all 0.2s;
+    transform: translateY(100%);
     z-index: 9999;
+  }
+  .mobile-menu-container.show {
+    transform: translateY(0%);
   }
   .mobile-menu-container .mmc-window {
     background-color: rgba(255, 255, 255, 0.7);

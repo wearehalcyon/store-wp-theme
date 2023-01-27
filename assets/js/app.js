@@ -442,6 +442,24 @@ jQuery(document).ready(function($){
             $('.search').addClass('active');
         }
     });
+
+    // Open mobile menu
+    let open_mobile_menu = $('.open_mobile_menu'),
+        close_mobile_menu = $('.mmc-close');
+    open_mobile_menu.on('click', function(event){
+        event.preventDefault();
+
+        if ($('.mobile-menu-container').hasClass('show')) {
+            $('.mobile-menu-container').removeClass('show');
+        } else {
+            $('.mobile-menu-container').addClass('show');
+        }
+    });
+    close_mobile_menu.on('click', function(event){
+        event.preventDefault();
+
+        $('.mobile-menu-container').removeClass('show');
+    });
 });
 
 /**

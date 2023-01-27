@@ -230,7 +230,12 @@ body.woocommerce .button-delete{
     height: 75%;
     left: 0;
     bottom: 0;
+    transition: all .2s;
+    transform: translateY(100%);
     z-index: 9999;
+    &.show{
+      transform: translateY(0%);
+    }
     .mmc-window{
       background-color: rgba(255,255,255,.7);
       backdrop-filter: $blur;
