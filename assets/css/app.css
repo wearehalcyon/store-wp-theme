@@ -1421,6 +1421,13 @@ main.main .other_content .latest_reviews .review_card .reviewer_meta p {
   width: 20%;
   padding: 0 15px;
 }
+@media (max-width: 767px) {
+  .site-main ul.products-row.products-row-absolute .product-col {
+    width: 50%;
+    margin-bottom: 10px;
+    padding: 0 5px;
+  }
+}
 .site-main ul.products-row.products-row-absolute .product-col a {
   display: flex;
   flex-wrap: wrap;
