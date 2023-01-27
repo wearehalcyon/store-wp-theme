@@ -1559,6 +1559,11 @@ main.main .other_content .latest_reviews .review_card .reviewer_meta p {
   overflow-y: auto;
   z-index: 10;
 }
+@media (max-width: 767px) {
+  .quick_cart_layer {
+    display: none;
+  }
+}
 .quick_cart_layer.active {
   transform: translateX(0%);
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);

@@ -1493,6 +1493,9 @@ main.main{
   border-left: 1px solid #f1f1f1;
   overflow-y: auto;
   z-index: 10;
+  @include sm{
+    display: none;
+  }
   &.active{
     transform: translateX(0%);
     box-shadow: 0px 0px 5px rgba(0,0,0,.1);
