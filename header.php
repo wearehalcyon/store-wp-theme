@@ -86,7 +86,7 @@ if ( isset( $_GET['qcart'] ) == 'empty' ) {
 			<div class="mmc-menu-list">
 				<?php
 					wp_nav_menu([
-						'theme_location' => 'primary',
+						'theme_location' => 'menu-1',
 						'menu_class' => false,
 						'menu_id' => false,
 						'container' => false
