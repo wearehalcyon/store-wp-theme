@@ -430,6 +430,14 @@ jQuery(document).ready(function($){
             });
         }
     });
+
+    // Open search form on mobile
+    let open_search = $('.open_search_form');
+    open_search.on('click', function(event){
+        event.preventDefault();
+
+        $('.search').addClass('active');
+    });
 });
 
 /**

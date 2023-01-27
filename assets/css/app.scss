@@ -1,3 +1,5 @@
+@import 'mixins.scss';
+
 $blur: blur(40px) saturate(1.3);
 $blue: #007bec;
 $bluehov: #0084ff;
@@ -85,6 +87,9 @@ body.woocommerce .button-delete{
   // @media (prefers-color-scheme: dark){
   //   background-color: rgba(46,46,46,.7);
   // }
+  @include sm{
+    height: auto;
+  }
   .logo{
     width: 33.3333%;
     line-height: normal;
@@ -101,6 +106,20 @@ body.woocommerce .button-delete{
     width: 33.3333%;
     line-height: normal;
     font-size: 0;
+  }
+  .backdrop{
+    display: none;
+  }
+  @include sm{
+    .search{
+      order: 3;
+      width: 100%;
+      display: none;
+      &.active{
+        display: block;
+        margin-top: 10px;
+      }
+    }
   }
   .search form{
     display: block;
@@ -142,6 +161,9 @@ body.woocommerce .button-delete{
     flex-wrap: wrap;
     align-items: center;
     justify-content: flex-end;
+    @include sm{
+      width: auto;
+    }
     a{
       display: inline-block;
       font-size: 14px;
@@ -156,6 +178,30 @@ body.woocommerce .button-delete{
       &:hover{
         background-color: $blue;
         color: #fff;
+        @include sm{
+          background-color: transparent;
+        }
+      }
+      @include sm{
+        display: inline-flex;
+        align-items: center;
+        padding: 0;
+        background-color: transparent;
+        height: 100%;
+        margin-right: 15px;
+        img{
+          width: 22px;
+          height: 22px;
+          border-radius: 0;
+        }
+        &.open_mobile_menu{
+          position: relative;
+          margin-right: 0;
+          img{
+            position: relative;
+            top: 2px;
+          }
+        }
       }
     }
     img{
@@ -195,6 +241,9 @@ body.admin-bar .sidebar{
   background-color: #fff;
   padding: 15px;
   z-index: 99;
+  @include sm{
+    display: none;
+  }
   ul{
     display: block;
     position: relative;
@@ -361,16 +410,31 @@ body.admin-bar .sidebar{
   margin-left: 64px;
   color: #fff;
   text-shadow: 1px 1px 3px rgba(0,0,0,.4);
+  @include sm{
+    margin-left: 0;
+    margin-top: 30px;
+    width: 100%;
+    height: auto;
+    padding: 50px 0;
+  }
   h1{
     font-size: 64px;
     font-weight: 600;
     margin-bottom: 10px;
+    @include sm{
+      font-size: 32px;
+      line-height: 38px;
+      font-weight: 800;
+    }
   }
   h3{
     font-size: 32px;
     margin-top: 0;
     font-weight: 400;
     margin-bottom: 10px;
+    @include sm{
+      font-size: 26px;
+    }
   }
   .cta_button{
     display: block;
@@ -404,6 +468,10 @@ main.main{
   width: calc(100% - 64px);
   height: auto;
   margin-left: 64px;
+  @include sm{
+    margin-left: 0;
+    width: 100%;
+  }
   .home_section_title{
     display: flex;
     width: 100%;
@@ -440,6 +508,9 @@ main.main{
         background-color: $blue;
         color: #fff;
       }
+      @include sm{
+        margin-right: 0;
+      }
     }
   }
   .fresh_releases{
@@ -462,6 +533,14 @@ main.main{
         margin-right: 15px;
         padding: 15px;
         transition: all .2s;
+        @include sm{
+          width: calc(50% - 10px);
+          margin: 0 5px 10px;
+          &:last-child{
+            width: calc(100% - 10px);
+            margin: 0 5px;
+          }
+        }
         &:hover{
           box-shadow: 0px 10px 40px rgba(0,0,0,0.2);
         }
@@ -598,6 +677,9 @@ main.main{
       .free_item{
         display: block;
         width: 20%;
+        @include sm{
+          width: 100%;
+        }
         a{
           display: flex;
           flex-wrap: wrap;
@@ -850,6 +932,10 @@ main.main{
   font-size: 14px;
   padding-top: 60px;
   top: 100%;
+  @include sm{
+    margin-left: 0;
+    width: 100%;
+  }
   .footer_container{
     display: flex;
     flex-wrap: wrap;
@@ -879,6 +965,16 @@ main.main{
     }
     .footer_column{
       position: relative;
+      @include sm{
+        &.footer_right{
+          display: none;
+        }
+        width: 100%;
+        p{
+          margin-top: 0;
+          margin-bottom: 20px;
+        }
+      }
       a{
         display: inline-block;
         text-decoration: none;
@@ -905,7 +1001,13 @@ main.main{
         list-style-type: none;
         margin: 0;
         padding: 0;
+        @include sm{
+          display: block;
+        }
         li{
+          @include sm{
+            margin: 5px 0;
+          }
           &:last-child span.delimiter{
             display: none;
           }
@@ -922,6 +1024,9 @@ main.main{
             display: inline-block;
             margin: 0 5px;
             font-size: 10px;
+            @include sm{
+              display: none;
+            }
           }
         }
       }
@@ -1111,6 +1216,11 @@ main.main{
   margin-left: 64px;
   padding: 70px 20px 20px 20px;
   color: #000;
+  @include sm{
+    margin-left: 0;
+    margin-top: 15px;
+    width: 100%;
+  }
   h1.get-account-title{
     text-align: center;
   }
@@ -2266,6 +2376,9 @@ body.woocommerce-order-received article.status-publish{
           display: inline-block;
           font-size: 0;
           margin: 0 5px;
+          @include sm{
+            margin: 0 3px;
+          }
           a{
             display: inline-block;
             font-size: 14px;
@@ -2279,6 +2392,11 @@ body.woocommerce-order-received article.status-publish{
               border-color: $blue;
               color: $blue;
             }
+            @include sm{
+              font-size: 12px;
+              border-radius: 4px;
+              padding: 2px 5px;
+            }
           }
         }
       }
@@ -2287,6 +2405,9 @@ body.woocommerce-order-received article.status-publish{
   .single_product_summary{
     width: calc(100% - 520px);
     margin-top: 0;
+    @include sm{
+      width: 100%;
+    }
     .product_card{
       display: block;
       position: relative;
@@ -2397,6 +2518,10 @@ body.woocommerce-order-received article.status-publish{
   h1{
     font-weight: 500;
     margin-bottom: 10px;
+    @include sm{
+      font-size: 28px;
+      line-height: 32px;
+    }
   }
   .manufacturer{
     display: block;
@@ -2410,9 +2535,15 @@ body.woocommerce-order-received article.status-publish{
   display: flex;
   flex-wrap: wrap;
   margin-top: 30px;
+  @include sm{
+    margin-top: 15px;
+  }
   .product_rating{
     width: 150px;
     height: auto;
+    @include sm{
+      width: 100%;
+    }
     .rating_count{
       display: inline-block;
       text-align: center;
@@ -2448,6 +2579,10 @@ body.woocommerce-order-received article.status-publish{
     width: calc(100% - 150px);
     font-size: 14px;
     padding-right: 80px;
+    @include sm{
+      width: 100%;
+      padding-right: 0;
+    }
     .product_price_and_buy{
       display: flex;
       flex-wrap: wrap;
@@ -2501,6 +2636,9 @@ body.woocommerce-order-received article.status-publish{
 
 .woocommerce .woocommerce-breadcrumb{
   margin-top: 20px;
+  @include sm{
+    display: none;
+  }
 }
 
 .rate_product_please{

@@ -37,6 +37,7 @@ if ( isset( $_GET['qcart'] ) == 'empty' ) {
 			</a>
 		</div>
 		<div class="search">
+			<div class="backdrop"></div>
 			<form role="search" id="searchform" class="searchform" action="<?php echo home_url('/'); ?>">
 				<input type="text" name="s" id="results" value="<?php echo get_search_query(); ?>" placeholder="Search Item...">
 				<button type="submit">
@@ -53,7 +54,22 @@ if ( isset( $_GET['qcart'] ) == 'empty' ) {
 					<img class="top-pan-avatar" src="<?php echo get_template_directory_uri() . '/assets/images/no-avatar.svg'; ?>" data-avatar="<?php echo get_template_directory_uri() . '/assets/images/no-avatar.svg'; ?>" alt="User Avatar Not Installed">
 				<?php endif; ?>
 			<?php else : ?>
-				<a href="#signin" class="open_signin">Sign In</a>
+				<a href="#signin" class="open_signin">
+					<?php if (!wp_is_mobile()) : ?>
+						Sign In
+					<?php else : ?>
+						<img src="<?php echo THEME_URI . '/assets/images/icons/user.svg' ?>" alt="User Account" width="16" height="16">
+					<?php endif; ?>
+				</a>
+			<?php endif; ?>
+			
+			<?php if (wp_is_mobile()) : ?>
+				<a href="javascript:;" class="open_search_form">
+					<img src="<?php echo THEME_URI . '/assets/images/icons/search.svg' ?>" alt="Open Search Form" width="16" height="16">
+				</a>
+				<a href="javascript:;" class="open_mobile_menu">
+					<img src="<?php echo THEME_URI . '/assets/images/icons/menu.svg' ?>" alt="Open Mobile Menu" width="16" height="16">
+				</a>
 			<?php endif; ?>
 		</div>
 	</header><!-- #masthead -->

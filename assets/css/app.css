@@ -86,6 +86,11 @@ body.woocommerce .button-delete.empty-cart-button:hover {
   padding: 12px 15px;
   z-index: 99;
 }
+@media (max-width: 767px) {
+  .site-header {
+    height: auto;
+  }
+}
 .site-header .logo {
   width: 33.3333%;
   line-height: normal;
@@ -102,6 +107,20 @@ body.woocommerce .button-delete.empty-cart-button:hover {
   width: 33.3333%;
   line-height: normal;
   font-size: 0;
+}
+.site-header .backdrop {
+  display: none;
+}
+@media (max-width: 767px) {
+  .site-header .search {
+    order: 3;
+    width: 100%;
+    display: none;
+  }
+  .site-header .search.active {
+    display: block;
+    margin-top: 10px;
+  }
 }
 .site-header .search form {
   display: block;
@@ -144,6 +163,11 @@ body.woocommerce .button-delete.empty-cart-button:hover {
   align-items: center;
   justify-content: flex-end;
 }
+@media (max-width: 767px) {
+  .site-header .account {
+    width: auto;
+  }
+}
 .site-header .account a {
   display: inline-block;
   font-size: 14px;
@@ -159,6 +183,34 @@ body.woocommerce .button-delete.empty-cart-button:hover {
 .site-header .account a:hover {
   background-color: #007bec;
   color: #fff;
+}
+@media (max-width: 767px) {
+  .site-header .account a:hover {
+    background-color: transparent;
+  }
+}
+@media (max-width: 767px) {
+  .site-header .account a {
+    display: inline-flex;
+    align-items: center;
+    padding: 0;
+    background-color: transparent;
+    height: 100%;
+    margin-right: 15px;
+  }
+  .site-header .account a img {
+    width: 22px;
+    height: 22px;
+    border-radius: 0;
+  }
+  .site-header .account a.open_mobile_menu {
+    position: relative;
+    margin-right: 0;
+  }
+  .site-header .account a.open_mobile_menu img {
+    position: relative;
+    top: 2px;
+  }
 }
 .site-header .account img {
   width: 40px;
@@ -198,6 +250,11 @@ body.admin-bar .sidebar {
   background-color: #fff;
   padding: 15px;
   z-index: 99;
+}
+@media (max-width: 767px) {
+  .sidebar {
+    display: none;
+  }
 }
 .sidebar ul {
   display: block;
@@ -360,16 +417,37 @@ body.admin-bar .sidebar {
   color: #fff;
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
 }
+@media (max-width: 767px) {
+  .hero {
+    margin-left: 0;
+    margin-top: 30px;
+    width: 100%;
+    height: auto;
+    padding: 50px 0;
+  }
+}
 .hero h1 {
   font-size: 64px;
   font-weight: 600;
   margin-bottom: 10px;
+}
+@media (max-width: 767px) {
+  .hero h1 {
+    font-size: 32px;
+    line-height: 38px;
+    font-weight: 800;
+  }
 }
 .hero h3 {
   font-size: 32px;
   margin-top: 0;
   font-weight: 400;
   margin-bottom: 10px;
+}
+@media (max-width: 767px) {
+  .hero h3 {
+    font-size: 26px;
+  }
 }
 .hero .cta_button {
   display: block;
@@ -403,6 +481,12 @@ main.main {
   width: calc(100% - 64px);
   height: auto;
   margin-left: 64px;
+}
+@media (max-width: 767px) {
+  main.main {
+    margin-left: 0;
+    width: 100%;
+  }
 }
 main.main .home_section_title {
   display: flex;
@@ -442,6 +526,11 @@ main.main .home_section_title a:hover {
   background-color: #007bec;
   color: #fff;
 }
+@media (max-width: 767px) {
+  main.main .home_section_title a {
+    margin-right: 0;
+  }
+}
 main.main .fresh_releases {
   padding: 20px;
   background-image: linear-gradient(rgba(248, 248, 248, 0.5), #F8F8F8);
@@ -465,6 +554,16 @@ main.main .fresh_releases .fresh_releases_list .fresh_item {
   margin-right: 15px;
   padding: 15px;
   transition: all 0.2s;
+}
+@media (max-width: 767px) {
+  main.main .fresh_releases .fresh_releases_list .fresh_item {
+    width: calc(50% - 10px);
+    margin: 0 5px 10px;
+  }
+  main.main .fresh_releases .fresh_releases_list .fresh_item:last-child {
+    width: calc(100% - 10px);
+    margin: 0 5px;
+  }
 }
 main.main .fresh_releases .fresh_releases_list .fresh_item:hover {
   box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.2);
@@ -605,6 +704,11 @@ main.main .other_content .free_items {
 main.main .other_content .free_items .free_item {
   display: block;
   width: 20%;
+}
+@media (max-width: 767px) {
+  main.main .other_content .free_items .free_item {
+    width: 100%;
+  }
 }
 main.main .other_content .free_items .free_item a {
   display: flex;
@@ -857,6 +961,12 @@ main.main .other_content .latest_reviews .review_card .reviewer_meta p {
   padding-top: 60px;
   top: 100%;
 }
+@media (max-width: 767px) {
+  .footer {
+    margin-left: 0;
+    width: 100%;
+  }
+}
 .footer .footer_container {
   display: flex;
   flex-wrap: wrap;
@@ -888,6 +998,18 @@ main.main .other_content .latest_reviews .review_card .reviewer_meta p {
 .footer .footer_container .footer_column {
   position: relative;
 }
+@media (max-width: 767px) {
+  .footer .footer_container .footer_column {
+    width: 100%;
+  }
+  .footer .footer_container .footer_column.footer_right {
+    display: none;
+  }
+  .footer .footer_container .footer_column p {
+    margin-top: 0;
+    margin-bottom: 20px;
+  }
+}
 .footer .footer_container .footer_column a {
   display: inline-block;
   text-decoration: none;
@@ -915,6 +1037,16 @@ main.main .other_content .latest_reviews .review_card .reviewer_meta p {
   margin: 0;
   padding: 0;
 }
+@media (max-width: 767px) {
+  .footer .footer_container .footer_column ul {
+    display: block;
+  }
+}
+@media (max-width: 767px) {
+  .footer .footer_container .footer_column ul li {
+    margin: 5px 0;
+  }
+}
 .footer .footer_container .footer_column ul li:last-child span.delimiter {
   display: none;
 }
@@ -931,6 +1063,11 @@ main.main .other_content .latest_reviews .review_card .reviewer_meta p {
   display: inline-block;
   margin: 0 5px;
   font-size: 10px;
+}
+@media (max-width: 767px) {
+  .footer .footer_container .footer_column ul li span.delimiter {
+    display: none;
+  }
 }
 
 .popup_win {
@@ -1122,6 +1259,13 @@ main.main .other_content .latest_reviews .review_card .reviewer_meta p {
   margin-left: 64px;
   padding: 70px 20px 20px 20px;
   color: #000;
+}
+@media (max-width: 767px) {
+  .site-main {
+    margin-left: 0;
+    margin-top: 15px;
+    width: 100%;
+  }
 }
 .site-main h1.get-account-title {
   text-align: center;
@@ -2349,6 +2493,11 @@ body.woocommerce-order-received article.status-publish {
   font-size: 0;
   margin: 0 5px;
 }
+@media (max-width: 767px) {
+  .single_product_wrap .product_card_display .share-item .share-links li {
+    margin: 0 3px;
+  }
+}
 .single_product_wrap .product_card_display .share-item .share-links li a {
   display: inline-block;
   font-size: 14px;
@@ -2363,9 +2512,21 @@ body.woocommerce-order-received article.status-publish {
   border-color: #007bec;
   color: #007bec;
 }
+@media (max-width: 767px) {
+  .single_product_wrap .product_card_display .share-item .share-links li a {
+    font-size: 12px;
+    border-radius: 4px;
+    padding: 2px 5px;
+  }
+}
 .single_product_wrap .single_product_summary {
   width: calc(100% - 520px);
   margin-top: 0;
+}
+@media (max-width: 767px) {
+  .single_product_wrap .single_product_summary {
+    width: 100%;
+  }
 }
 .single_product_wrap .single_product_summary .product_card {
   display: block;
@@ -2475,6 +2636,12 @@ body.woocommerce-order-received article.status-publish {
   font-weight: 500;
   margin-bottom: 10px;
 }
+@media (max-width: 767px) {
+  .product_details h1 {
+    font-size: 28px;
+    line-height: 32px;
+  }
+}
 .product_details .manufacturer {
   display: block;
   position: relative;
@@ -2487,9 +2654,19 @@ body.woocommerce-order-received article.status-publish {
   flex-wrap: wrap;
   margin-top: 30px;
 }
+@media (max-width: 767px) {
+  .product_meta_info {
+    margin-top: 15px;
+  }
+}
 .product_meta_info .product_rating {
   width: 150px;
   height: auto;
+}
+@media (max-width: 767px) {
+  .product_meta_info .product_rating {
+    width: 100%;
+  }
 }
 .product_meta_info .product_rating .rating_count {
   display: inline-block;
@@ -2525,6 +2702,12 @@ body.woocommerce-order-received article.status-publish {
   width: calc(100% - 150px);
   font-size: 14px;
   padding-right: 80px;
+}
+@media (max-width: 767px) {
+  .product_meta_info .product_info {
+    width: 100%;
+    padding-right: 0;
+  }
 }
 .product_meta_info .product_info .product_price_and_buy {
   display: flex;
@@ -2578,6 +2761,11 @@ body.woocommerce-order-received article.status-publish {
 
 .woocommerce .woocommerce-breadcrumb {
   margin-top: 20px;
+}
+@media (max-width: 767px) {
+  .woocommerce .woocommerce-breadcrumb {
+    display: none;
+  }
 }
 
 .rate_product_please {

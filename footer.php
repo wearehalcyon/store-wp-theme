@@ -40,7 +40,7 @@ global $woocommerce, $current_user;
             </div>
         </div>
     </footer>
-    <?php if ( get_browser_name() != 'Chrome' && get_browser_name() != 'Safari' && get_browser_name() != 'Opera' ) : ?>
+    <?php if ( 1 == 2 &&  get_browser_name() != 'Chrome' && get_browser_name() != 'Safari' && get_browser_name() != 'Opera' ) : ?>
         <div class="unsupported_browser">
             <?php esc_html_e('You are used unsupported browser. Application will work but sometimes you can see some glitches or transparencies. For better experience you can use Chrome based browsers or Safari.'); ?>
             <br>

@@ -1,0 +1,48 @@
+// -- Mixins Global --
+
+// Media query
+@mixin xxl {
+    @media (max-width: 1600px) { @content; }
+  }
+  
+  @mixin xl {
+    @media (max-width: 1400px) { @content; }
+  }
+  
+  @mixin lg {
+    @media (max-width: 1200px) { @content; }
+  }
+  
+  @mixin md {
+    @media (max-width: 992px) { @content; }
+  }
+  
+  @mixin sm {
+    @media (max-width: 767px) { @content; }
+  }
+  
+  @mixin xs {
+    @media (max-width: 576px) { @content; }
+  }
+  
+  // Size
+  @mixin size($width, $height: $width) {
+    width: $width;
+    height: $height;
+  }
+  
+  // Pseudo
+  @mixin pseudo($display: block, $pos: absolute, $content: '') {
+    content: $content;
+    display: $display;
+    position: $pos;
+  }
+  
+  // Placeholder
+  @mixin placeholder {
+    &.placeholder { @content; }
+    &:-moz-placeholder { @content; }
+    &::-moz-placeholder { @content; }
+    &:-ms-input-placeholder { @content; }
+    &::-webkit-input-placeholder { @content; }
+  }
