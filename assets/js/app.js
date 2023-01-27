@@ -437,9 +437,9 @@ jQuery(document).ready(function($){
         event.preventDefault();
 
         if ($('.search').hasClass('active')) {
-            $('.search').addClass('active');
-        } else {
             $('.search').removeClass('active');
+        } else {
+            $('.search').addClass('active');
         }
     });
 });
